@@ -19,6 +19,7 @@ import HomeContactSkeleton from "@/components/placeholder/HomeContactSkeleton";
 import HomeContact from "@/components/home/Contact";
 import ContactusContactSkeleton from "@/components/placeholder/ContactusContactSkeleton";
 import ContactusContact from "@/components/contact-us/Contact";
+import TopScroll from "../top-scroll/TopScroll";
 
 export default async function AppLayout({
   children,
@@ -31,6 +32,7 @@ export default async function AppLayout({
 
   return (
     <>
+      <TopScroll />
       <div className="w-full absolute z-50">
         <Suspense
           fallback={<TopbarSkeleton contactsCount={2} socialsCount={3} />}
@@ -62,13 +64,15 @@ export default async function AppLayout({
       )}
       {shouldShow("contact-banner", pathname) && (
         <Suspense fallback={<ContactBannerSkeleton hasButton={true} />}>
-        <Banner
-          title={globalData?.data?.contact_section?.title}
-          subtitle={globalData?.data?.contact_section?.subtitle}
-          link={globalData?.data?.contact_section?.link}
-          background_image={globalData?.data?.contact_section?.background_image}
-        />
-      </Suspense>
+          <Banner
+            title={globalData?.data?.contact_section?.title}
+            subtitle={globalData?.data?.contact_section?.subtitle}
+            link={globalData?.data?.contact_section?.link}
+            background_image={
+              globalData?.data?.contact_section?.background_image
+            }
+          />
+        </Suspense>
       )}
       {pathname === "/" && (
         <Suspense fallback={<HomeContactSkeleton inputCount={5} />}>

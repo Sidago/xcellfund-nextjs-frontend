@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
+import Icon from "../common/Icon";
 
 export default function TopScroll() {
   const [show, setShow] = useState(false);
@@ -44,11 +45,11 @@ export default function TopScroll() {
     <>
       {show && (
         <button
-          className="bg-[#cfb795] text-white p-3 fixed bottom-5 right-5 z-50 hover:bg-[#b99a73] transition-opacity duration-300 cursor-pointer"
+          className="bg-(--sand-500) text-white p-3 fixed bottom-5 right-5 z-50 hover:bg-[#b99a73] transition-opacity duration-300 cursor-pointer"
           onClick={handleClick}
           aria-label="Scroll to top"
         >
-          <i className="fa fa-arrow-up" aria-hidden="true"></i>
+          <Icon name="faArrowUp" />
         </button>
       )}
     </>
