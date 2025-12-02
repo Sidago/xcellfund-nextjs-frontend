@@ -1,7 +1,6 @@
 import Hero from "@/components/common/Hero";
 import Form from "@/components/contact/Form";
 import AppLayout from "@/components/layouts/AppLayout";
-import RichtextContent from "@/components/rich-text-content/RichtextContent";
 import fetchApi from "@/services/ApiService";
 import { createMetadata } from "@/utils/generateMetadata";
 import React from "react";
