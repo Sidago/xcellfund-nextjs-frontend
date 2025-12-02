@@ -1,0 +1,136 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+
+  /* Custom Sand color shades */
+  --sand-50: #fcfaf7;
+  --sand-100: #f9f4eb;
+  --sand-200: #f1e6d5;
+  --sand-300: #e9d7be;
+  --sand-400: #dfc59f;
+  --sand-500: #CFB795; /* main color */
+  --sand-600: #b89f7c;
+  --sand-700: #9d8b68;
+  --sand-800: #7f7152;
+  --sand-900: #665d44;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-lato);
+}
+
+/* Font utility classes */
+.prata {
+  font-family: var(--font-prata);
+}
+
+.montserrat {
+  font-family: var(--font-montserrat);
+}
+
+/* Carousel classes */
+.carousel-icon-container {
+  @apply flex flex-col items-center cursor-pointer gap-0;
+}
+
+/* Shared styles for arrows and lines */
+.carousel-icon-container .up-arrow,
+.carousel-icon-container .down-arrow,
+.carousel-icon-container .top-line,
+.carousel-icon-container .bottom-line {
+  @apply bg-white;
+}
+
+/* Up & Down arrow dimensions */
+.carousel-icon-container .up-arrow,
+.carousel-icon-container .down-arrow {
+  @apply relative w-[2px] h-[20px];
+}
+
+/* Next button pseudo-element */
+.carousel-icon-container .up-arrow::before {
+  content: "";
+  @apply absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+  width: 6px;
+  height: 6px;
+  border-top: 2px solid #ffffff;
+  border-left: 2px solid #ffffff;
+}
+
+/* Bottom line */
+.carousel-icon-container .bottom-line {
+  @apply w-[2px] h-[15px];
+}
+
+/* Previous button top line */
+.carousel-icon-container .top-line {
+  @apply w-[2px] h-[15px];
+}
+
+/* Next & Previous text */
+.next-text,
+.prev-text {
+  color: #ffffff;
+  font-family: sans-serif;
+  font-weight: bold;
+  font-size: 14px;
+  transform: rotate(270deg);
+  margin: 30px 0;
+}
+
+.next-text {
+  letter-spacing: 4px;
+}
+
+.prev-text {
+  letter-spacing: 3px;
+}
+
+/* Carousel */
+.carousel-title {
+  font-family: var(--font-prata);
+  letter-spacing: 0px;
+  font-weight: 300;
+  color: #ffffff;
+}
+
+.carousel-description {
+  font-family: var(--font-lato);
+  font-weight: 300;
+}
+
+/* Down arrow pseudo-element */
+.carousel-icon-container .down-arrow::before {
+  content: "";
+  @apply absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%) rotate(225deg);
+  width: 6px;
+  height: 6px;
+  border-top: 2px solid #ffffff;
+  border-left: 2px solid #ffffff;
+}
+/* Main Menu and Sub Menu */
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.hamburger-animate-slideDown {
+  animation: slideDown 0.25s ease-out;
+}

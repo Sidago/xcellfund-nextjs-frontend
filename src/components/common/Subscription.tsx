@@ -1,0 +1,93 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+"use client";
+import React from "react";
+import AppLink from "./AppLink";
+import Icon from "./Icon";
+
+type Icon = {
+  name: string;
+};
+
+type Button = {
+  label: string;
+  icon: Icon;
+};
+
+type Input = {
+  icon: Icon;
+  label?: string;
+  placeholder?: string;
+  type?: "text" | "email" | "tel" | "number" | "textarea";
+  required?: boolean;
+  name?: string;
+};
+
+type Social = {
+  id: number;
+  label: string | null;
+  url: string;
+  type: "text" | "email" | "phone" | string;
+  target?: "_blank" | "_self" | "_parent" | "_top";
+  aria_label?: string;
+  external?: boolean;
+  icon: Icon;
+};
+
+type Props = {
+  button: Button;
+  input: Input;
+  socials: Social[];
+};
+
+export default function Subscription({ button, input, socials }: Props) {
+  return (
+    <div className="w-full bg-gray-950 p-5">
+      <div className="w-full max-w-[1140px] mx-auto">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-4 p-4">
+          {/* Email Subscription */}
+          <div className="w-full md:w-1/3">
+            <form className="flex items-center gap-2 w-full bg-white rounded">
+              <input
+                type={input.type}
+                placeholder={input.placeholder}
+                className="p-3 rounded-l text-base w-full text-black placeholder-gray-300 focus:outline-none flex-1"
+                aria-label={input.label || "Subscription Input"}
+                required={input.required}
+              />
+              <button
+                type="submit"
+                className="bg-(--sand-500) text-white px-4 py-3 rounded-r hover:bg-(--sand-600) transition-colors duration-200 shrink-0 disabled:opacity-50 cursor-pointer disabled:cursor-not-allowed"
+              >
+                {button.label}
+              </button>
+            </form>
+          </div>
+
+          {/* Social Icons */}
+          <nav className="flex gap-4">
+            {socials &&
+              socials.map((social: any) => (
+                <div key={social.id} className="flex items-center">
+                  <AppLink
+                    aria_label={social.aria_label}
+                    external={social.external}
+                    label={social.label}
+                    target={social.target}
+                    type={social.type}
+                    url={social.url}
+                  >
+                    {social.icon && (
+                      <Icon
+                        name={social.icon.name}
+                        className="w-4 h-4 text-white"
+                      />
+                    )}
+                  </AppLink>
+                </div>
+              ))}
+          </nav>
+        </div>
+      </div>
+    </div>
+  );
+}
