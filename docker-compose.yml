@@ -7,5 +7,5 @@ services:
     image: xcellfund-nextjs-frontend:latest
     container_name: xcellfund-nextjs-frontend
     ports:
-      - "1337:3000"
+      - "1338:3000"
     restart: unless-stopped
