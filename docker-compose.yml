@@ -1,0 +1,11 @@
+version: "3"
+
+services:
+  xcellfund-nextjs-frontend:
+    env_file:
+      - .env
+    image: xcellfund-nextjs-frontend:latest
+    container_name: xcellfund-nextjs-frontend
+    ports:
+      - "1337:3000"
+    restart: unless-stopped
