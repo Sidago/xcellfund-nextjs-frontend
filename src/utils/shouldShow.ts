@@ -1,6 +1,6 @@
 type Content = "contact-banner" | "map";
 
-const notAllowedPathForContactBanner = ["/contact"]; // do not show contact banner on these paths
+const notAllowedPathForContactBanner = ["/contact-us","/investors"]; // do not show contact banner on these paths
 const allowedPathForMap = ["/","/contact-us"]; // only show map on these paths
 
 export function shouldShow(content: Content, pathname: string): boolean {

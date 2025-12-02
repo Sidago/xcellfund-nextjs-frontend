@@ -42,38 +42,49 @@ type Media = {
   updatedAt: string;
   publishedAt: string;
 };
+
 type Props = {
   alt_text?: string;
   image: Media;
 };
 
 export default function PicturePreview({ alt_text, image }: Props) {
+  const fallbackSrc = getAbsoluteUrl(image.url);
+
   return (
     <picture className="w-full h-full">
-      {image.formats?.small && (
-        <source
-          media="(max-width: 500px)"
-          srcSet={getAbsoluteUrl(image.formats.small.url)}
-        />
-      )}
-      {image.formats?.medium && (
-        <source
-          media="(max-width: 750px)"
-          srcSet={getAbsoluteUrl(image.formats.medium.url)}
-        />
-      )}
+      {/* Large image for desktops */}
       {image.formats?.large && (
         <source
-          media="(max-width: 1000px)"
+          media="(min-width: 1001px)"
           srcSet={getAbsoluteUrl(image.formats.large.url)}
+          type={image.formats.large.mime}
         />
       )}
-      {/* Fallback / default */}
+      {/* Medium image for tablets */}
+      {image.formats?.medium && (
+        <source
+          media="(min-width: 751px) and (max-width: 1000px)"
+          srcSet={getAbsoluteUrl(image.formats.medium.url)}
+          type={image.formats.medium.mime}
+        />
+      )}
+      {/* Small image for mobile */}
+      {image.formats?.small && (
+        <source
+          media="(max-width: 750px)"
+          srcSet={getAbsoluteUrl(image.formats.small.url)}
+          type={image.formats.small.mime}
+        />
+      )}
+      {/* Fallback for browsers that don't support <picture> */}
       <img
-        src={getAbsoluteUrl(image.url)}
+        src={fallbackSrc}
         alt={alt_text || image.alternativeText || "xcellfund"}
-        className="w-full h-full object-cover"
+        className="w-full h-full object-cover min-h-[350px] sm:min-h-[400px] md:min-h-[450px]"
         loading="lazy"
+        width={image.width}
+        height={image.height}
       />
     </picture>
   );

@@ -46,22 +46,6 @@ export default async function AppLayout({
         </Suspense>
       </div>
       {children}
-      <Suspense fallback={<ContactBannerSkeleton hasButton={true} />}>
-        <Banner
-          title={globalData?.data?.contact_section?.title}
-          subtitle={globalData?.data?.contact_section?.subtitle}
-          link={globalData?.data?.contact_section?.link}
-          background_image={globalData?.data?.contact_section?.background_image}
-        />
-      </Suspense>
-      {pathname === "/" && (
-        <Suspense fallback={<HomeContactSkeleton inputCount={5} />}>
-          <HomeContact
-            input={globalData?.data?.contact_form?.input}
-            button={globalData?.data?.contact_form?.button}
-          />
-        </Suspense>
-      )}
       {pathname === "/contact-us" && (
         <Suspense
           fallback={<ContactusContactSkeleton inputCount={5} linkCount={2} />}
@@ -73,6 +57,24 @@ export default async function AppLayout({
               ...globalData?.data?.footer_section?.address,
               heading: "Our Location",
             }}
+          />
+        </Suspense>
+      )}
+      {shouldShow("contact-banner", pathname) && (
+        <Suspense fallback={<ContactBannerSkeleton hasButton={true} />}>
+        <Banner
+          title={globalData?.data?.contact_section?.title}
+          subtitle={globalData?.data?.contact_section?.subtitle}
+          link={globalData?.data?.contact_section?.link}
+          background_image={globalData?.data?.contact_section?.background_image}
+        />
+      </Suspense>
+      )}
+      {pathname === "/" && (
+        <Suspense fallback={<HomeContactSkeleton inputCount={5} />}>
+          <HomeContact
+            input={globalData?.data?.contact_form?.input}
+            button={globalData?.data?.contact_form?.button}
           />
         </Suspense>
       )}

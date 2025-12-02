@@ -103,7 +103,7 @@ export default function Menu({ brand, menus }: Props) {
                         leaveFrom="opacity-100 translate-y-0"
                         leaveTo="opacity-0 translate-y-1"
                       >
-                        <HeadlessMenu.Items className="absolute top-10 right-0 left-auto bg-white shadow-lg z-50 w-56 max-w-[calc(100vw-20px)] overflow-hidden px-4 py-2 focus:outline-none focus:ring-0">
+                        <HeadlessMenu.Items className="absolute top-full right-0 left-auto bg-white shadow-lg z-50 w-56 max-w-[calc(100vw-20px)] overflow-hidden px-4 py-2 focus:outline-none focus:ring-0">
                           {item.submenu.map((sub) => (
                             <HeadlessMenu.Item key={sub.id}>
                               {({ active }) => (

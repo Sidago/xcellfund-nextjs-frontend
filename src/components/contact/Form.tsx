@@ -25,7 +25,7 @@ type Props = {
   input: Input[];
 };
 
-export default function Form({button, input }: Props) {
+export default function Form({ button, input }: Props) {
   const isOdd = input.length % 2 !== 0; // check if total inputs are odd
 
   return (
@@ -43,6 +43,7 @@ export default function Form({button, input }: Props) {
 
           return (
             <div key={index} className={isLastOdd ? "md:col-span-2" : ""}>
+              {field.label && <label className="block text-sm font-light mb-2 text-gray-950" htmlFor={field.name}>{field.label}<span>{field.required ? " *" : ""}</span></label>}
               <TextInput
                 name={field.name}
                 type={field.type}
