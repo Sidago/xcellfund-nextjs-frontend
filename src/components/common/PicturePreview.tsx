@@ -49,11 +49,16 @@ type Props = {
   priority?: boolean; // ⭐ NEW
 };
 
-export default function PicturePreview({ alt_text, image, priority = false }: Props) {
+export default function PicturePreview({
+  alt_text,
+  image,
+  priority = false,
+}: Props) {
   const fallbackSrc = getAbsoluteUrl(image.url);
 
   return (
     <picture className="w-full h-full">
+      {/* Large screen */}
       {image.formats?.large && (
         <source
           media="(min-width: 1001px)"
@@ -62,6 +67,7 @@ export default function PicturePreview({ alt_text, image, priority = false }: Pr
         />
       )}
 
+      {/* Medium screen */}
       {image.formats?.medium && (
         <source
           media="(min-width: 751px) and (max-width: 1000px)"
@@ -70,6 +76,7 @@ export default function PicturePreview({ alt_text, image, priority = false }: Pr
         />
       )}
 
+      {/* Small screen */}
       {image.formats?.small && (
         <source
           media="(max-width: 750px)"
@@ -78,15 +85,17 @@ export default function PicturePreview({ alt_text, image, priority = false }: Pr
         />
       )}
 
+      {/* Fallback */}
       <img
         src={fallbackSrc}
         alt={alt_text || image.alternativeText || "xcellfund"}
         className="w-full h-full object-cover min-h-[350px] sm:min-h-[400px] md:min-h-[450px]"
         width={image.width}
         height={image.height}
-        loading={priority ? "eager" : "lazy"}         // ⭐ FIX
-        fetchPriority={priority ? "high" : "auto"}    // ⭐ FIX
+        loading={priority ? "eager" : "lazy"}
+        fetchPriority={priority ? "high" : "auto"}
         decoding="async"
+        sizes="(max-width: 750px) 100vw, (max-width: 1000px) 50vw, 33vw"
       />
     </picture>
   );
