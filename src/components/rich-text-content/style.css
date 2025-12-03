@@ -157,7 +157,7 @@
 
 .page-content .list-tick li::before {
   content: "\f00c";
-  font-family: "FontAwesome";
+  font-family: "Font Awesome 5 Free";
   font-weight: normal;
   position: absolute;
   left: 0;

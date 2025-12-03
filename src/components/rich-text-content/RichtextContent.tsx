@@ -1,4 +1,5 @@
 import React from "react";
+import '@fortawesome/fontawesome-free/css/all.min.css';
 import "@/components/rich-text-content/style.css";
 
 interface RichtextContentProps {
