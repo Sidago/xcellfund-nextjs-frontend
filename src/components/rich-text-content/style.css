@@ -6,6 +6,7 @@
   max-width: 1140px; /* page max width you want */
   margin-left: auto;
   margin-right: auto;
+  font-weight: 300;
 }
 
 /* Ensure all images are responsive */
@@ -138,8 +139,8 @@
 
 .page-content .list-icon li::before {
   content: "\f0a4";
-  font-family: "FontAwesome";
-  font-weight: normal;
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
   position: absolute;
   left: 0;
   top: 0.3em;
@@ -158,7 +159,7 @@
 .page-content .list-tick li::before {
   content: "\f00c";
   font-family: "Font Awesome 5 Free";
-  font-weight: normal;
+  font-weight: 900;           /* solid weight required */
   position: absolute;
   left: 0;
   top: 0.3em;
@@ -166,6 +167,8 @@
   color: #00486A;
   display: inline-block;
 }
+
+
 strong {
   font-weight: 600;
 }
