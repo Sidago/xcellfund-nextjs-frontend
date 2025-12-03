@@ -46,14 +46,14 @@ type Media = {
 type Props = {
   alt_text?: string;
   image: Media;
+  priority?: boolean; // ⭐ NEW
 };
 
-export default function PicturePreview({ alt_text, image }: Props) {
+export default function PicturePreview({ alt_text, image, priority = false }: Props) {
   const fallbackSrc = getAbsoluteUrl(image.url);
 
   return (
     <picture className="w-full h-full">
-      {/* Large image for desktops */}
       {image.formats?.large && (
         <source
           media="(min-width: 1001px)"
@@ -61,7 +61,7 @@ export default function PicturePreview({ alt_text, image }: Props) {
           type={image.formats.large.mime}
         />
       )}
-      {/* Medium image for tablets */}
+
       {image.formats?.medium && (
         <source
           media="(min-width: 751px) and (max-width: 1000px)"
@@ -69,7 +69,7 @@ export default function PicturePreview({ alt_text, image }: Props) {
           type={image.formats.medium.mime}
         />
       )}
-      {/* Small image for mobile */}
+
       {image.formats?.small && (
         <source
           media="(max-width: 750px)"
@@ -77,14 +77,16 @@ export default function PicturePreview({ alt_text, image }: Props) {
           type={image.formats.small.mime}
         />
       )}
-      {/* Fallback for browsers that don't support <picture> */}
+
       <img
         src={fallbackSrc}
         alt={alt_text || image.alternativeText || "xcellfund"}
         className="w-full h-full object-cover min-h-[350px] sm:min-h-[400px] md:min-h-[450px]"
-        loading="lazy"
         width={image.width}
         height={image.height}
+        loading={priority ? "eager" : "lazy"}         // ⭐ FIX
+        fetchPriority={priority ? "high" : "auto"}    // ⭐ FIX
+        decoding="async"
       />
     </picture>
   );

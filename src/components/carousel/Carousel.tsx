@@ -164,7 +164,7 @@ export default function Carousel({ items, interval = 6000 }: CarouselProps) {
           transition={{ duration: 1 }}
           className="absolute inset-0"
         >
-          <PicturePreview image={slide.image} alt_text={slide.title} />
+          <PicturePreview image={slide.image} alt_text={slide.title} priority />
         </motion.div>
       </AnimatePresence>
 
