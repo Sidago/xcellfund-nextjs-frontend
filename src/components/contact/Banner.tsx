@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import AppLink from "../common/AppLink";
+import AppLink from "@/components/common/AppLink";
 import React from "react";
-import PicturePreview from "../common/PicturePreview";
+import PicturePreview from "@/components/common/PicturePreview";
 
 type MediaFormat = {
   ext: string;
@@ -71,7 +71,7 @@ export default function Banner({
     <div className="relative w-full h-[400px] flex justify-center items-center text-center px-6 md:px-12">
       {/* Responsive Picture Background */}
       <div className="absolute inset-0 -z-10">
-        <PicturePreview alt_text={title} image={background_image} />
+        <PicturePreview alt_text={title} image={background_image} priority />
       </div>
 
       {/* Centered Content */}

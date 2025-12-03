@@ -56,7 +56,7 @@ export default function Hero({ image, alt_text,title, subtitle }: Props) {
       className="relative w-full overflow-hidden"
     >
       <div className="relative w-full min-h-[450px] md:min-h-[420px] lg:min-h-[500px]">
-        <PicturePreview alt_text={alt_text} image={image} />
+        <PicturePreview alt_text={alt_text} image={image} priority />
         {/* centered text */}
         <div className="absolute inset-0 flex flex-col justify-end items-start px-5 md:px-8 z-10">
           <div

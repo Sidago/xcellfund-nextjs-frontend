@@ -135,17 +135,17 @@ const RightContent = ({ images }: { images: Media[] }) => {
       <div className="relative flex flex-col gap-0 md:grid md:grid-cols-8">
         {hero && (
           <div className="md:col-start-3 md:col-end-13 overflow-hidden shadow-lg h-60 md:h-[360px] relative">
-            <PicturePreview image={hero} />
+            <PicturePreview image={hero} priority />
           </div>
         )}
         {left && (
           <div className="md:col-start-2 md:col-end-4 md:-mt-10 overflow-hidden shadow-md h-60 md:h-[180px] relative">
-            <PicturePreview image={left} />
+            <PicturePreview image={left} priority />
           </div>
         )}
         {right && (
           <div className="md:col-start-4 md:col-end-13 md:-mt-10 overflow-hidden shadow-md h-60 relative">
-            <PicturePreview image={right} />
+            <PicturePreview image={right} priority />
           </div>
         )}
       </div>
