@@ -5,8 +5,8 @@
 
 import React, { useState, useEffect, useRef, useLayoutEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import ScrollButton from "./ScrollButton";
-import PicturePreview from "../common/PicturePreview";
+import ScrollButton from "@/components/carousel/ScrollButton";
+import PicturePreview from "@/components/common/PicturePreview";
 
 type MediaFormat = {
   ext: string;

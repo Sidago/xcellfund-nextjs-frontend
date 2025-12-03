@@ -1,5 +1,5 @@
 "use client";
-import Icon from "../common/Icon";
+import Icon from "@/components/common/Icon";
 
 type Props = {
   open: boolean;

@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 
 export const HighlightsSkeleton = ({ count = 4 }: { count?: number }) => {

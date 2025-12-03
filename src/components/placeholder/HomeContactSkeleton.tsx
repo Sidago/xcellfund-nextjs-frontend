@@ -1,4 +1,3 @@
-"use client";
 import React from "react";
 import FormSkeleton from "@/components/placeholder/FormSkeleton";
 

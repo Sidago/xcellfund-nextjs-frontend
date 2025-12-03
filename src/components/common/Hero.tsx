@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import React from "react";
-import PicturePreview from "./PicturePreview";
+import PicturePreview from "@/components/common/PicturePreview";
 
 type MediaFormat = {
   ext: string;

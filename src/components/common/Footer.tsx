@@ -1,4 +1,4 @@
-import AppLink from "./AppLink";
+import AppLink from "@/components/common/AppLink";
 import { getAbsoluteUrl } from "@/utils/assetUrl";
 import Image from "next/image";
 import React from "react";

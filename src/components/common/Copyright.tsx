@@ -1,4 +1,4 @@
-import AppLink from "./AppLink";
+import AppLink from "@/components/common/AppLink";
 import React from "react";
 
 type Icon = {

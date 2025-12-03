@@ -5,8 +5,8 @@
 import Image from "next/image";
 import React, { useState, Fragment } from "react";
 import { Menu as HeadlessMenu, Transition } from "@headlessui/react";
-import { MobileMenuButton } from "./MobileMenuButton";
-import { MobileMenu } from "./MobileMenu";
+import { MobileMenuButton } from "@/components/menu/MobileMenuButton";
+import { MobileMenu } from "@/components/menu/MobileMenu";
 import { getAbsoluteUrl } from "@/utils/assetUrl";
 import AppLink from "@/components/common/AppLink";
 import Icon from "@/components/common/Icon";

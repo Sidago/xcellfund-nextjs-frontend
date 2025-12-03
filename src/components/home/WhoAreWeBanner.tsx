@@ -2,7 +2,7 @@
 import React from "react";
 import PicturePreview from "@/components/common/PicturePreview";
 import Icon from "@/components/common/Icon";
-import AppLink from "../common/AppLink";
+import AppLink from "@/components/common/AppLink";
 
 type Icon = {
   name: string;

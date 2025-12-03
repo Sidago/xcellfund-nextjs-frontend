@@ -1,6 +1,5 @@
-"use client";
 import React from "react";
-import "./style.css";
+import "@/components/rich-text-content/style.css";
 
 interface RichtextContentProps {
   content?: string;

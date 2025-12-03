@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
-import AppLink from "../common/AppLink";
-import Icon from "../common/Icon";
+import AppLink from "@/components/common/AppLink";
+import Icon from "@/components/common/Icon";
 import { usePathname } from "next/navigation";
 
 type Icon = { name: string };

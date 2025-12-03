@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import Icon from "../common/Icon";
+import Icon from "@/components/common/Icon";
 
 export default function TopScroll() {
   const [show, setShow] = useState(false);

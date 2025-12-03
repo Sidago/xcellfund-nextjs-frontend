@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import AppLink from "./AppLink";
-import Icon from "./Icon";
+import AppLink from "@/components/common/AppLink";
+import Icon from "@/components/common/Icon";
 import React from "react";
 
 export default function Topbar({ data }: { data: any }) {

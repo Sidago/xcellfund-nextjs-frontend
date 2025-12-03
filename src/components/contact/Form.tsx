@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import TextInput from "../common/TextInput";
+import TextInput from "@/components/common/TextInput";
 
 type Icon = {
   name: string;

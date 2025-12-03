@@ -1,5 +1,5 @@
 import React from "react";
-import AppLink from "../common/AppLink";
+import AppLink from "@/components/common/AppLink";
 
 type Icon = {
   name: string;
