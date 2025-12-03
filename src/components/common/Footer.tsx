@@ -78,7 +78,7 @@ export default function Footer({ address, branding, quicklinks }: Props) {
               />
             )}
             {branding.company_description && (
-              <p className="text-[#333] text-base font-light">
+              <p className="text-gray-800 text-base font-light">
                 {branding.company_description}
               </p>
             )}
@@ -86,9 +86,9 @@ export default function Footer({ address, branding, quicklinks }: Props) {
 
           {/* Quick Links */}
           <div className="flex-1 flex flex-col items-start gap-2">
-            <h4 className="font-semibold text-gray-800 mb-2">
+            <h3 className="font-semibold text-gray-800 mb-2">
               {quicklinks.heading || "Quick Links"}
-            </h4>
+            </h3>
             <nav className="flex flex-col items-start gap-2 text-left">
               {/**text-gray-800 hover:text-black transition-colors duration-200 */}
               {quicklinks?.links?.map((link: LinkItem, index: number) => (
@@ -108,9 +108,9 @@ export default function Footer({ address, branding, quicklinks }: Props) {
 
           {/* Location */}
           <div className="flex-1 flex flex-col items-start gap-2">
-            <h4 className="font-semibold text-gray-800 mb-2">
+            <h3 className="font-semibold text-gray-800 mb-2">
               {address.heading || "Location"}
-            </h4>
+            </h3>
             {address.address && (
               <p className="text-gray-800 font-light whitespace-pre-line">
                 {address.address}

@@ -96,14 +96,14 @@ export default function WhoAreWeBanner({
 
 const LeftContent = ({ subtitle, title, description, link }: Content) => (
   <div className="w-full flex flex-col items-start text-left">
-    <div className="text-[#909aa3] uppercase font-bold text-xs tracking-[2px]">
-      <div className="w-32 bg-[#cbd2d7] h-px relative -left-44 top-2.5"></div>
+    <div className="uppercase font-bold text-xs tracking-[2px]">
+      <div className="w-32 bg-[#cbd2d7] text-gray-400 h-px relative -left-44 top-2.5"></div>
       {subtitle}
     </div>
     <h1 className="text-[#c6ac83] text-4xl leading-[1.56em] mt-3 prata">
       {title}
     </h1>
-    <p className="text-[#909aa3] text-[14px] tracking-widest mt-4 max-w-md">
+    <p className="text-gray-400 text-[14px] tracking-widest mt-4 max-w-md">
       {description}
     </p>
 

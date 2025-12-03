@@ -41,7 +41,11 @@ export const metadata = {
   metadataBase: new URL(defaultSEO.canonical),
 };
 
-export default async function RootLayout({ children }: { children: ReactNode }) {
+export default async function RootLayout({
+  children,
+}: {
+  children: ReactNode;
+}) {
   // JSON-LD
   const jsonLd = {
     "@context": "https://schema.org",
@@ -96,15 +100,14 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
         {metadata.additionalMetaTags.map((tag) => (
           <meta key={tag.name} name={tag.name} content={tag.content} />
         ))}
-
+      </head>
+      <body>
+        {children}
         {/* JSON-LD */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-      </head>
-      <body>
-        {children}
       </body>
     </html>
   );

@@ -26,7 +26,7 @@ type Props = {
 
 export default function HomeContact({ button, input }: Props) {
   return (
-    <div className="w-full max-w-[1140px] px-4 md:mx-auto py-12">
+    <div className="w-full max-w-[1140px] px-4 md:mx-auto pt-12 md:pt-20 pb-12">
       <h2 className="text-(--sand-500) text-4xl leading-[1.56em] uppercase mb-8 text-center md:text-left prata">
         Contact Us
       </h2>

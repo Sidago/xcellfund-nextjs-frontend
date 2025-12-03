@@ -19,9 +19,9 @@ export default async function page() {
         subtitle={data?.data?.hero.subtitle}
         image={data?.data?.hero.background_image}
       />
-      <main className="max-w-[1140px] mx-auto px-5 md:px-0 py-20">
+      <section className="max-w-[1140px] mx-auto px-5 md:px-0 py-20">
         <RichtextContent content={data?.data?.content} />
-      </main>
+      </section>
     </AppLayout>
   );
 }
