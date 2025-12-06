@@ -4,6 +4,7 @@ interface AppConfig {
   appUrl: string;
   apiUrl: string;
   apiKey: string;
+  assetUrl?: string;
   cacheTimeout: number; // in seconds
 }
 
@@ -14,6 +15,7 @@ const appConfig: AppConfig = {
   cacheTimeout: process.env.NEXT_CACHE_TIMEOUT
     ? parseInt(process.env.NEXT_CACHE_TIMEOUT, 10)
     : 3600, // default 1 hour
+  assetUrl: process.env.NEXT_PUBLIC_ASSET_URL || process.env.NEXT_PUBLIC_API_URL || "http://localhost:1337",
 };
 
 export default appConfig;
