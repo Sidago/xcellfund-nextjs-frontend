@@ -12,8 +12,12 @@ const nextConfig: NextConfig = {
         port: "1337",
       },
       {
+        protocol: "http",
+        hostname: "http://75.119.135.164",
+      },
+      {
         protocol: "https",
-        hostname: "xcellfund.duckdns.org",
+        hostname: "xcell.fund",
       },
     ],
   },
