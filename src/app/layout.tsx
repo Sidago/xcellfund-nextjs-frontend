@@ -3,6 +3,9 @@ import "@styles/globals.css";
 import { defaultSEO } from "@/config/seo.config";
 import { ReactNode } from "react";
 
+import { config } from "@fortawesome/fontawesome-svg-core";
+import "@fortawesome/fontawesome-svg-core/styles.css";
+
 export const metadata = {
   title: defaultSEO.title,
   description: defaultSEO.description,
@@ -95,6 +98,18 @@ export default async function RootLayout({
           content={metadata.twitter.description}
         />
         <meta name="twitter:image" content={metadata.twitter.images[0]} />
+
+        {/* Preconnects */}
+        <link rel="preconnect" href="https://xcellfund.com" crossOrigin="" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+
+        {/* Preload hero/LCP image */}
+        <link
+          rel="preload"
+          as="image"
+          href={`${defaultSEO.canonical}${defaultSEO.og_image}`}
+        />
 
         {/* Additional Meta */}
         {metadata.additionalMetaTags.map((tag) => (

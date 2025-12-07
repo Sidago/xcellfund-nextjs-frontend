@@ -1,4 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+"use client";
+import Image from "next/image";
 import { getAbsoluteUrl } from "@/utils/assetUrl";
 import React from "react";
 
@@ -46,7 +48,7 @@ type Media = {
 type Props = {
   alt_text?: string;
   image: Media;
-  priority?: boolean; // ⭐ NEW
+  priority?: boolean; // LCP
 };
 
 export default function PicturePreview({
@@ -54,49 +56,24 @@ export default function PicturePreview({
   image,
   priority = false,
 }: Props) {
+  // Choose responsive source URLs or fallback
+  const srcLarge = image.formats?.large ? getAbsoluteUrl(image.formats.large.url) : null;
+  const srcMedium = image.formats?.medium ? getAbsoluteUrl(image.formats.medium.url) : null;
+  const srcSmall = image.formats?.small ? getAbsoluteUrl(image.formats.small.url) : null;
   const fallbackSrc = getAbsoluteUrl(image.url);
 
   return (
-    <picture className="w-full h-full">
-      {/* Large screen */}
-      {image.formats?.large && (
-        <source
-          media="(min-width: 1001px)"
-          srcSet={getAbsoluteUrl(image.formats.large.url)}
-          type={image.formats.large.mime}
-        />
-      )}
-
-      {/* Medium screen */}
-      {image.formats?.medium && (
-        <source
-          media="(min-width: 751px) and (max-width: 1000px)"
-          srcSet={getAbsoluteUrl(image.formats.medium.url)}
-          type={image.formats.medium.mime}
-        />
-      )}
-
-      {/* Small screen */}
-      {image.formats?.small && (
-        <source
-          media="(max-width: 750px)"
-          srcSet={getAbsoluteUrl(image.formats.small.url)}
-          type={image.formats.small.mime}
-        />
-      )}
-
-      {/* Fallback */}
-      <img
+    <div className="w-full h-full relative min-h-[350px] sm:min-h-[400px] md:min-h-[450px]">
+      <Image
         src={fallbackSrc}
         alt={alt_text || image.alternativeText || "xcellfund"}
-        className="w-full h-full object-cover min-h-[350px] sm:min-h-[400px] md:min-h-[450px]"
-        width={image.width}
-        height={image.height}
-        loading={priority ? "eager" : "lazy"}
-        fetchPriority={priority ? "high" : "auto"}
-        decoding="async"
+        fill
         sizes="(max-width: 750px) 100vw, (max-width: 1000px) 50vw, 33vw"
+        priority={priority}
+        className="object-cover"
+        // Optional: next/image will automatically pick WebP/AVIF if available
+        // Optional: add loader if needed for your backend
       />
-    </picture>
+    </div>
   );
 }

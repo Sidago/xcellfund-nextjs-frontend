@@ -1,5 +1,6 @@
+# robots.txt for xcellfund.com
+
 User-agent: *
-Disallow: /admin/
 Allow: /
 
 Sitemap: https://xcellfund.com/sitemap.xml

@@ -19,6 +19,18 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "xcell.fund",
       },
+      {
+        protocol: "https",
+        hostname: "www.xcell.fund",
+      },
+      {
+        protocol: "https",
+        hostname: "xcellfund.com",
+      },
+      {
+        protocol: "https",
+        hostname: "www.xcellfund.com",
+      },
     ],
   },
 };
