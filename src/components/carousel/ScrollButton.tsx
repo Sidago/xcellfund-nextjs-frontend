@@ -29,7 +29,7 @@ const ScrollButton: React.FC<ScrollButtonProps> = ({ type = "next", onClick }) =
 
       {/* Text */}
       <div
-        className={`text-white font-bold text-[14px] my-[30px] transform rotate-270 ${
+        className={`text-white font-bold text-[12px] my-[30px] transform rotate-270 ${
           isNext ? "tracking-[4px]" : "tracking-[3px]"
         }`}
       >

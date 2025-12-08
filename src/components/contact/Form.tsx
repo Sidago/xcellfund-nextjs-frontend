@@ -60,7 +60,7 @@ export default function Form({ button, input }: Props) {
       <div className="mt-6">
         <button
           type="submit"
-          className="inline-block bg-black text-white px-6 py-3 rounded capitalize font-normal tracking-[1px] hover:opacity-95 transition cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+          className="lato text-[15px] inline-block bg-[#333743] text-white px-6 py-3 rounded capitalize font-normal hover:opacity-95 transition cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {button.label}
         </button>

@@ -50,7 +50,7 @@ export default function ContactusContact({ button, input, address }: Props) {
       <div className="flex flex-col md:flex-row gap-8">
         {/* Form: full width on mobile, flex-1 on desktop */}
         <div className="w-full md:flex-1">
-          <h2 className="text-gray-800 text-2xl leading-[1.56em] uppercase mb-8 text-center md:text-left prata">
+          <h2 className="text-gray-800 text-2xl font-normal leading-14 uppercase mb-8 text-center md:text-left prata">
             Send Us a Message
           </h2>
           <Form input={input} button={button} />

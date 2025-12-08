@@ -34,7 +34,7 @@ export default function Features({ data }: FeaturesProps) {
   const features: Feature[] = (data as Feature[]) ?? [];
 
   return (
-    <div className="flex flex-wrap justify-center max-w-[1140px] mx-auto relative top-12 md:top-[-100px] px-5 md:px-0">
+    <div className="flex flex-wrap justify-center max-w-[1140px] mx-auto relative top-12 md:top-[-100px] px-16 md:px-0">
       {features.map((feature) => {
         return (
           <Item
@@ -60,7 +60,7 @@ const Item = ({ icon, title, link }: Feature) => {
       className="w-full sm:w-1/2 lg:w-1/4 bg-[#414345] flex flex-col justify-center items-center 
                  border-solid border-t-0 border-r border-b-0 border-l-0 border-[#3B3A3A] 
                  transition-all duration-300 ease-in-out py-10 px-16 
-                 hover:bg-black hover:shadow-md hover:shadow-[#C6AC83]/30 mb-2 md:mb-0 feature-title"
+                 hover:bg-[#333743] hover:shadow-md hover:shadow-[#C6AC83]/30 mb-2 md:mb-0 feature-title"
     >
       <Icon name={icon.name} className="text-(--sand-500) text-[40px]" />
       <h2 className="prata text-(--sand-500) text-[20px] text-center leading-8 mt-2">{title}</h2>

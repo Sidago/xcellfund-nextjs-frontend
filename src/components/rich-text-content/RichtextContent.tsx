@@ -25,7 +25,7 @@ export default function RichtextContent({
 
   return (
     <div
-      className="page-content prose prose-lg max-w-none"
+      className="page-content prose prose-lg max-w-none  [&_h2]:text-[30px] [&_h2]:prata [&_h2]:font-medium"
       dangerouslySetInnerHTML={{ __html: content }}
     />
   );

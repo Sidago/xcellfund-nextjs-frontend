@@ -21,7 +21,7 @@ export default function Services({ data }: ServicesProps) {
   const cards: Card[] = data?.cards ?? [];
 
   return (
-    <div className="max-w-[1140px] mx-auto mb-10 px-5 md:px-0">
+    <div className="max-w-[1140px] mx-auto mb-10 px-16 md:px-0 mt-24 md:mt-0">
       <h2 className="prata text-(--sand-500) font-normal text-4xl tracking-wide uppercase mb-12 text-center md:text-left">
         {data?.heading}
       </h2>
@@ -51,12 +51,12 @@ const Item = ({ title, description }: ItemProps) => {
       className="group bg-white flex flex-col border border-[#eff0f0] shadow-lg
                  p-6 text-left
                  transition-all duration-500 ease-in-out 
-                 hover:-translate-y-3 hover:bg-black hover:shadow-lg hover:shadow-[#C6AC83]/40"
+                 hover:-translate-y-3 hover:bg-[#333743] hover:shadow-lg hover:shadow-[#C6AC83]/40"
     >
-      <h3 className="prata text-lg font-normal leading-7 mb-2 transition-colors duration-300 ease-in-out group-hover:text-white w-2/3">
+      <h3 className="prata text-xl font-normal leading-9 mb-2 transition-colors duration-300 ease-in-out group-hover:text-white w-2/3">
         {title}
       </h3>
-      <p className="prata text-sm font-normal leading-7 text-justify text-gray-600 transition-colors duration-300 ease-in-out group-hover:text-white">
+      <p className="lato text-lg font-light text-justify text-[#333743] leading-[30px] tracking-[-1px] transition-colors duration-300 ease-in-out group-hover:text-white">
         {description}
       </p>
     </div>

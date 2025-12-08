@@ -78,7 +78,7 @@ export default function Footer({ address, branding, quicklinks }: Props) {
               />
             )}
             {branding.company_description && (
-              <p className="text-gray-800 text-base font-light">
+              <p className="text-gray-800 text-lg font-light lato">
                 {branding.company_description}
               </p>
             )}
@@ -100,7 +100,7 @@ export default function Footer({ address, branding, quicklinks }: Props) {
                   target={link.target}
                   type={link.type}
                   url={link.url}
-                  className="inline-flex items-center text-gray-800 font-light hover:text-(--sand-500) transition-colors duration-200 text-base"
+                  className="inline-flex items-center text-gray-800 font-light hover:text-(--sand-500) transition-colors duration-200 text-base lato"
                 />
               ))}
             </nav>

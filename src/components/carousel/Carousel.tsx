@@ -1,44 +1,29 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import React, { useState, useEffect, useRef, useLayoutEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import Image from "next/image";
 import ScrollButton from "@/components/carousel/ScrollButton";
+import Image from "next/image";
 import { getAbsoluteUrl } from "@/utils/assetUrl";
 
-export type MediaFormat = {
-  ext: string;
+type MediaFormat = {
   url: string;
-  hash: string;
-  mime: string;
-  name: string;
-  path: string | null;
-  size: number;
   width: number;
   height: number;
-  sizeInBytes: number;
 };
 
-export type Media = {
-  id: number;
-  documentId: string;
-  name: string;
-  alternativeText: string | null;
-  caption: string | null;
+type Media = {
+  url: string;
   width: number;
   height: number;
-  formats?: Record<string, MediaFormat | undefined>;
-  hash: string;
-  ext: string;
-  mime: string;
-  size: number;
-  url: string;
-  previewUrl: string | null;
-  provider: string;
-  provider_metadata: any;
-  createdAt: string;
-  updatedAt: string;
-  publishedAt: string;
+  alternativeText: string | null;
+  formats?: {
+    small?: MediaFormat;
+    medium?: MediaFormat;
+    large?: MediaFormat;
+    webp?: MediaFormat;
+  };
 };
 
 export type CarouselItem = {
@@ -53,17 +38,10 @@ interface CarouselProps {
   interval?: number;
 }
 
-// Animation directions for text
-const animationDirections = [
-  { x: 0, y: "-100vh" },
-  { x: 0, y: "100vh" },
-  { x: "-100vw", y: 0 },
-  { x: "100vw", y: 0 },
-];
-
-// Helper: pick best optimized image
+// ------------------- OPTIMIZED IMAGE PICKER -------------------
 const getOptimizedImage = (image: Media) => {
   return (
+    image.formats?.webp?.url ??
     image.formats?.small?.url ??
     image.formats?.medium?.url ??
     image.formats?.large?.url ??
@@ -71,36 +49,48 @@ const getOptimizedImage = (image: Media) => {
   );
 };
 
+// ------------------- BLUR PLACEHOLDER -------------------
+const getBlurDataURL = () =>
+  "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8Xw8AAn0B9p9oTiMAAAAASUVORK5CYII=";
+
+// ------------------- RANDOM ANIMATION DIRECTIONS -------------------
+const directions = [
+  { x: -100, y: 0 }, // left
+  { x: 100, y: 0 },  // right
+  { x: 0, y: -100 }, // top
+  { x: 0, y: 100 },  // bottom
+];
+
+const getRandomDirection = () => {
+  return directions[Math.floor(Math.random() * directions.length)];
+};
+
 export default function Carousel({ items, interval = 6000 }: CarouselProps) {
   const [current, setCurrent] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [progress, setProgress] = useState(0);
 
-  const [animTitle, setAnimTitle] = useState(animationDirections[0]);
-  const [animDesc, setAnimDesc] = useState(animationDirections[1]);
-  const [animLine, setAnimLine] = useState(animationDirections[2]);
-  const [lineHeight, setLineHeight] = useState(0);
-
   const textRef = useRef<HTMLDivElement | null>(null);
   const slide = items[current];
 
-  /** --------------------------- RANDOM ANIMATION --------------------------- */
-  useEffect(() => {
-    const random = () =>
-      animationDirections[
-        Math.floor(Math.random() * animationDirections.length)
-      ];
+  // ------------------- RANDOM DIRECTIONS (INDEPENDENT) -------------------
+  const [dirTitle, setDirTitle] = useState({ x: 0, y: 100 });
+  const [dirDesc, setDirDesc] = useState({ x: 0, y: 100 });
+  const [dirLine, setDirLine] = useState({ x: 0, y: 100 });
 
-    setAnimTitle(random());
-    setAnimDesc(random());
-    setAnimLine(random());
+  const [lineHeight, setLineHeight] = useState(0);
+
+  // ------------------- ON SLIDE CHANGE -------------------
+  useEffect(() => {
+    setDirTitle(getRandomDirection());
+    setDirDesc(getRandomDirection());
+    setDirLine(getRandomDirection());
     setProgress(0);
   }, [current]);
 
-  /** --------------------------- AUTO SLIDE TIMER --------------------------- */
+  // ------------------- AUTO SLIDE -------------------
   useEffect(() => {
-    if (isPaused || items.length <= 1) return;
-
+    if (isPaused) return;
     const timer = setInterval(() => {
       setProgress((p) => {
         if (p >= 100) {
@@ -112,41 +102,39 @@ export default function Carousel({ items, interval = 6000 }: CarouselProps) {
     }, interval / 60);
 
     return () => clearInterval(timer);
-  }, [isPaused, items.length, interval]);
+  }, [isPaused, interval, items.length]);
 
-  /** --------------------------- LINE HEIGHT CALC --------------------------- */
+  // ------------------- LINE HEIGHT CALC -------------------
   useLayoutEffect(() => {
     if (textRef.current) setLineHeight(textRef.current.offsetHeight);
   }, [current]);
 
-  /** --------------------------- SWIPE GESTURES --------------------------- */
-  const touchStartX = useRef(0);
-  const touchEndX = useRef(0);
+  // ------------------- SWIPE EVENTS -------------------
+  let touchStartX = 0;
+  let touchEndX = 0;
 
   const onTouchStart = (e: React.TouchEvent) => {
-    touchStartX.current = e.changedTouches[0].screenX;
+    touchStartX = e.changedTouches[0].screenX;
   };
 
   const onTouchEnd = (e: React.TouchEvent) => {
-    touchEndX.current = e.changedTouches[0].screenX;
-    handleSwipe();
+    touchEndX = e.changedTouches[0].screenX;
+    if (touchStartX - touchEndX > 70) nextSlide(); // left swipe
+    if (touchEndX - touchStartX > 70) prevSlide(); // right swipe
   };
 
-  const handleSwipe = () => {
-    if (touchStartX.current - touchEndX.current > 70) nextSlide();
-    if (touchEndX.current - touchStartX.current > 70) prevSlide();
-  };
-
-  /** --------------------------- NAVIGATION --------------------------- */
   const nextSlide = () => setCurrent((prev) => (prev + 1) % items.length);
+
   const prevSlide = () =>
     setCurrent((prev) => (prev - 1 + items.length) % items.length);
 
   if (!items.length) return null;
 
+  const optimizedImage = getOptimizedImage(slide.image);
+
   return (
     <div
-      className="relative w-full h-[60vh] md:h-[90vh] overflow-hidden"
+      className="relative w-full h-[470px] md:h-[745px] overflow-hidden"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
       onTouchStart={onTouchStart}
@@ -154,81 +142,80 @@ export default function Carousel({ items, interval = 6000 }: CarouselProps) {
     >
       {/* ---------------- BACKGROUND IMAGE ---------------- */}
       <AnimatePresence>
-        {items.map((slideItem, index) =>
-          index === current ? (
-            <motion.div
-              key={slideItem.id}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 1 }}
-              className="absolute inset-0 text"
-            >
-              <Image
-                src={getAbsoluteUrl(getOptimizedImage(slideItem.image))}
-                alt={slideItem.image.alternativeText || slideItem.title || "Slide Image"}
-                width={slideItem.image.width}
-                height={slideItem.image.height}
-                className="absolute inset-0 w-full h-full object-cover"
-                priority={index === 0} // preload only the first slide
-                fetchPriority={index === 0 ? "high" : "auto"} 
-                quality={80}
-                sizes="100vw"
-              />
-              {/* optional overlay for readability */}
-              <div className="absolute inset-0 bg-black/30" />
-            </motion.div>
-          ) : null
-        )}
+        <motion.div
+          key={slide.id}
+          animate={{ opacity: 1, scale: 1.09 }} // cinematic zoom
+          transition={{
+            duration: 10,
+            ease: "easeOut",
+          }}
+          className="absolute inset-0"
+        >
+          <Image
+            src={getAbsoluteUrl(optimizedImage)}
+            alt={slide.image.alternativeText || slide.title}
+            width={slide.image.width}
+            height={slide.image.height}
+            className="absolute inset-0 w-full h-full object-cover"
+            priority={current === 0}
+            loading={current === 0 ? "eager" : "lazy"}
+            quality={75}
+            placeholder="blur"
+            blurDataURL={getBlurDataURL()}
+            sizes="100vw"
+          />
+        </motion.div>
       </AnimatePresence>
 
-      {/* ---------------- TEXT + ANIMATED ELEMENTS ---------------- */}
-      <div className="absolute inset-0 flex justify-center md:justify-start items-center px-6 md:px-10 text-white">
-        <div className="max-w-[1140px] w-full flex items-start gap-10 flex-col md:flex-row mx-auto">
-          {/* Animated Line */}
+      {/* ---------------- TEXT + LINES ---------------- */}
+      <div className="absolute inset-0 flex justify-center md:justify-start items-center px-4 md:px-10 text-white">
+        <div className="max-w-[1140px] w-full flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-10 mx-auto">
+          
+          {/* LINE */}
           <motion.div
             key={"line-" + current}
-            initial={animLine}
+            initial={dirLine}
             animate={{ x: 0, y: 0, height: lineHeight }}
             transition={{ duration: 0.9, ease: "easeOut" }}
-            className="hidden md:block w-px bg-gray-500"
+            className="hidden md:block w-px bg-gray-500 shrink-0"
           />
 
-          {/* Text */}
-          <div ref={textRef} className="flex flex-col mt-20 text-center md:text-left">
+          {/* TEXT CONTENT */}
+          <div
+            ref={textRef}
+            className="flex flex-col justify-center items-center md:justify-normal md:items-start text-center md:text-left w-full md:w-[calc(100%-120px)] lg:w-[calc(100%-150px)] mt-24"
+          >
+            {/* TITLE */}
             <motion.h2
               key={slide.title + current}
-              initial={animTitle}
+              initial={dirTitle}
               animate={{ x: 0, y: 0, opacity: 1 }}
               transition={{ duration: 0.9, ease: "easeOut" }}
-              className="text-3xl sm:text-4xl md:text-[62px] leading-[1.2] md:leading-[82px] md:w-1/2"
+              className="text-4xl md:text-[62px] font-light prata leading-[39px] md:leading-[82px] w-full max-w-[690px]"
             >
               {slide.title}
             </motion.h2>
 
+            {/* DESCRIPTION */}
             <motion.div
               key={slide.description + current}
-              initial={animDesc}
+              initial={dirDesc}
               animate={{ x: 0, y: 0, opacity: 1 }}
               transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
-              className="mt-6 text-sm sm:text-base md:text-lg text-(--sand-500) font-light leading-8 md:text-white md:w-2/3 prose prose-invert"
+              className="lato text-[16px] md:text-2xl font-light leading-[25px] md:leading-9 text-(--sand-500) md:text-white w-[340px] md:w-[725px] mt-3"
               dangerouslySetInnerHTML={{ __html: slide.description }}
             />
           </div>
         </div>
       </div>
 
-      {/* ---------------- NAVIGATION BUTTONS ---------------- */}
-      {items.length > 1 && (
-        <>
-          <div className="hidden md:block absolute left-6 top-1/2 -translate-y-1/2">
-            <ScrollButton type="prev" onClick={prevSlide} />
-          </div>
-          <div className="hidden md:block absolute right-6 top-1/2 -translate-y-1/2">
-            <ScrollButton type="next" onClick={nextSlide} />
-          </div>
-        </>
-      )}
+      {/* ---------------- NAV BUTTONS ---------------- */}
+      <div className="absolute left-2 md:left-6 top-1/2 -translate-y-1/2 z-20 hidden md:block">
+        <ScrollButton type="prev" onClick={prevSlide} />
+      </div>
+      <div className="absolute right-2 md:right-6 top-1/2 -translate-y-1/2 z-20 hidden md:block">
+        <ScrollButton type="next" onClick={nextSlide} />
+      </div>
     </div>
   );
 }

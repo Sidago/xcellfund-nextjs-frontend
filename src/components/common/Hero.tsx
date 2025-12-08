@@ -53,10 +53,15 @@ type Props = {
   priority?: boolean; // LCP
 };
 
-const Hero: React.FC<Props> = ({ title, subtitle, image, alt_text, priority = true }) => {
+const Hero: React.FC<Props> = ({
+  title,
+  subtitle,
+  image,
+  alt_text,
+  priority = true,
+}) => {
   if (!image) return null;
 
-  // Pick the best format for src
   const src =
     image.formats?.large?.url ||
     image.formats?.medium?.url ||
@@ -67,7 +72,7 @@ const Hero: React.FC<Props> = ({ title, subtitle, image, alt_text, priority = tr
   const height = image.formats?.large?.height || image.height;
 
   return (
-    <section className="relative w-full h-[50vh] md:h-[80vh] overflow-hidden flex items-center justify-center bg-gray-100">
+    <section className="relative w-full h-[379px] md:h-[519px] overflow-hidden flex items-center justify-center bg-gray-100">
       <Image
         src={getAbsoluteUrl(src)}
         alt={alt_text || image.alternativeText || title || "Hero Image"}
@@ -78,11 +83,28 @@ const Hero: React.FC<Props> = ({ title, subtitle, image, alt_text, priority = tr
         className="absolute inset-0 w-full h-full object-cover"
         sizes="100vw"
       />
-      <div className="relative z-10 text-center text-white px-5 md:px-0">
-        {title && <h1 className="text-3xl md:text-5xl font-bold mb-4">{title}</h1>}
+
+      {/* Content */}
+      <div
+        className="
+          relative z-10 px-5 py-5
+          flex flex-col gap-3
+          text-white
+          items-start
+          justify-end
+          bottom-16
+          w-full max-w-[1140px] h-full
+          text-left md:bottom-20
+        "
+      >
+        {title && (
+          <h1 className="flex flex-nowrap gap-4 items-center text-[26px] md:text-6xl font-normal prata">
+            <span className="h-16 md:h-32 w-px bg-gray-500 inline-block mr-5 md:mr-10"></span>
+            <span>{title}</span>
+          </h1>
+        )}
         {subtitle && <p className="text-lg md:text-2xl">{subtitle}</p>}
       </div>
-      <div className="absolute inset-0 bg-black/40" /> {/* overlay */}
     </section>
   );
 };

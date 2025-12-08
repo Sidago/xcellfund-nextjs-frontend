@@ -1,30 +1,28 @@
-import localFont from "next/font/local";
+import { Lato, Montserrat, Prata } from "next/font/google";
 
-export const lato = localFont({
-  src: [
-    { path: "../public/fonts/lato/Lato-Thin.woff2", weight: "100" },
-    { path: "../public/fonts/lato/Lato-Light.woff2", weight: "300" },
-    { path: "../public/fonts/lato/Lato-Regular.woff2", weight: "400" },
-    { path: "../public/fonts/lato/Lato-Bold.woff2", weight: "700" },
-  ],
+// Lato: multiple weights + italics
+export const lato = Lato({
+  subsets: ["latin"],
+  weight: ["100","300","400","700","900"],
+  style: ["normal","italic"],
+  display: "swap",
   variable: "--font-lato",
-  display: "swap",
 });
 
-export const montserrat = localFont({
-  src: [
-    { path: "../public/fonts/montserrat/Montserrat-Light.woff2", weight: "300" },
-    { path: "../public/fonts/montserrat/Montserrat-Regular.woff2", weight: "400" },
-    { path: "../public/fonts/montserrat/Montserrat-Medium.woff2", weight: "500" },
-    { path: "../public/fonts/montserrat/Montserrat-SemiBold.woff2", weight: "600" },
-    { path: "../public/fonts/montserrat/Montserrat-Bold.woff2", weight: "700" },
-  ],
+// Montserrat: multiple weights + italics
+export const montserrat = Montserrat({
+  subsets: ["latin"],
+  weight: ["100","200","300","400","500","600","700","800","900"],
+  style: ["normal","italic"],
+  display: "swap",
   variable: "--font-montserrat",
-  display: "swap",
 });
 
-export const prata = localFont({
-  src: [{ path: "../public/fonts/prata/Prata-Regular.woff2", weight: "400" }],
-  variable: "--font-prata",
+// Prata: only 400 normal
+export const prata = Prata({
+  subsets: ["latin"],
+  weight: "400",
+  style: "normal",
   display: "swap",
+  variable: "--font-prata",
 });

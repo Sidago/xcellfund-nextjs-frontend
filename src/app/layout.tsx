@@ -1,8 +1,7 @@
-import { lato, prata, montserrat } from "@/fonts";
 import "@styles/globals.css";
 import { defaultSEO } from "@/config/seo.config";
 import { ReactNode } from "react";
-
+import { lato, prata, montserrat } from "@/fonts";
 import { config } from "@fortawesome/fontawesome-svg-core";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 

@@ -28,7 +28,7 @@ export default function Highlights({ data }: { data: Content[] }) {
   const list = data ?? [];
 
   return (
-    <div className="bg-transparent bg-[radial-gradient(at_center_center,#1d2022_0%,#202326_100%)] opacity-100 transition-[background,border-radius,opacity] duration-300">
+    <div className="bg-transparent bg-[radial-gradient(at_center_center,#1d2022_0%,#202326_100%)] opacity-100 transition-[background,border-radius,opacity] duration-300 px-10 md:px-0">
       <div className="max-w-[1140px] mx-auto py-12 px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {list.map((item) => (
@@ -46,7 +46,7 @@ export default function Highlights({ data }: { data: Content[] }) {
 
 const Item = ({ title, subtitle, description, link }: Content) => {
   return (
-    <div className="bg-[#2C2F31] p-6 transition-all duration-300 hover:shadow-[0_0_15px_rgba(255,255,255,0.35)]">
+    <div className="bg-[#24252a] p-6 transition-all duration-300 hover:shadow-[0_0_15px_rgba(255,255,255,0.35)]">
       {subtitle && (
         <div className="text-(--sand-500) uppercase tracking-widest text-sm mb-2">
           {subtitle}
@@ -54,10 +54,10 @@ const Item = ({ title, subtitle, description, link }: Content) => {
       )}
 
       {title && (
-        <h3 className="text-2xl font-normal text-white mb-3 prata">{title}</h3>
+        <h3 className="text-2xl font-normal text-white mb-3 prata leading-9">{title}</h3>
       )}
 
-      <p className="text-white mb-5 prata text-base font-light leading-7">
+      <p className="text-white mb-5 lato text-lg font-light leading-[30px] tracking-[0.5px] md:tracking-normal">
         {description}
       </p>
       {link && (
@@ -68,7 +68,7 @@ const Item = ({ title, subtitle, description, link }: Content) => {
           target={link.target}
           type={link.type}
           url={link.url}
-          className="px-4 py-2 rounded bg-gray-600 text-white font-medium hover:bg-(--sand-500) uppercase prata text-sm"
+          className="px-4 py-2.5 rounded bg-[#333743] text-white font-light hover:bg-(--sand-500) uppercase text-[15px] lato"
         />
       )}
     </div>
