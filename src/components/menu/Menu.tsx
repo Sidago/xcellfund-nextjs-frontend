@@ -59,6 +59,7 @@ export default function Menu({ brand, menus }: Props) {
               width={brand.logo.width || 150}
               height={brand.logo.height || 40}
               priority
+              fetchPriority="high" 
               unoptimized
             />
           </AppLink>

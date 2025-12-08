@@ -171,6 +171,7 @@ export default function Carousel({ items, interval = 6000 }: CarouselProps) {
                 height={slideItem.image.height}
                 className="absolute inset-0 w-full h-full object-cover"
                 priority={index === 0} // preload only the first slide
+                fetchPriority={index === 0 ? "high" : "auto"} 
                 quality={80}
                 sizes="100vw"
               />

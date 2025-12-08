@@ -2,14 +2,15 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+
   compiler: {
-    removeConsole: true,
+    removeConsole: process.env.NODE_ENV === "production",
   },
+
   compress: true,
-  experimental: {
-    optimizeCss: true,
-  },
+
   images: {
+    formats: ["image/avif", "image/webp"], // enables modern formats
     remotePatterns: [
       {
         protocol: "http",
@@ -18,7 +19,7 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "http",
-        hostname: "http://75.119.135.164",
+        hostname: "75.119.135.164",
       },
       {
         protocol: "https",
@@ -35,9 +36,13 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "www.xcellfund.com",
-      },
+      }
     ],
   },
+
+  experimental: {
+    optimizeCss: true,
+  }
 };
 
 export default nextConfig;
