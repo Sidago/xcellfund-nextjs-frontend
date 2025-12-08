@@ -22,6 +22,7 @@
   font-family: "Font Awesome 5 Free";
   font-weight: 900;
   color: var(--sand-500);
+  margin-right: 10px;
 }
 
 .page-content .list-tick li::before {
