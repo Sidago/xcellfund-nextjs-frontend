@@ -2,8 +2,9 @@
 
 import React, { useState, useEffect, useRef, useLayoutEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 import ScrollButton from "@/components/carousel/ScrollButton";
-import PicturePreview from "@/components/common/PicturePreview";
+import { getAbsoluteUrl } from "@/utils/assetUrl";
 
 export type MediaFormat = {
   ext: string;
@@ -52,7 +53,7 @@ interface CarouselProps {
   interval?: number;
 }
 
-// Random animation directions
+// Animation directions for text
 const animationDirections = [
   { x: 0, y: "-100vh" },
   { x: 0, y: "100vh" },
@@ -83,9 +84,7 @@ export default function Carousel({ items, interval = 6000 }: CarouselProps) {
   const textRef = useRef<HTMLDivElement | null>(null);
   const slide = items[current];
 
-  /** ---------------------------
-   *   RANDOM ANIMATION (SAFE)
-   * --------------------------- */
+  /** --------------------------- RANDOM ANIMATION --------------------------- */
   useEffect(() => {
     const random = () =>
       animationDirections[
@@ -98,11 +97,9 @@ export default function Carousel({ items, interval = 6000 }: CarouselProps) {
     setProgress(0);
   }, [current]);
 
-  /** ---------------------------
-   *   AUTO SLIDE TIMER
-   * --------------------------- */
+  /** --------------------------- AUTO SLIDE TIMER --------------------------- */
   useEffect(() => {
-    if (isPaused) return;
+    if (isPaused || items.length <= 1) return;
 
     const timer = setInterval(() => {
       setProgress((p) => {
@@ -117,36 +114,30 @@ export default function Carousel({ items, interval = 6000 }: CarouselProps) {
     return () => clearInterval(timer);
   }, [isPaused, items.length, interval]);
 
-  /** ---------------------------
-   *   LINE HEIGHT CALC
-   * --------------------------- */
+  /** --------------------------- LINE HEIGHT CALC --------------------------- */
   useLayoutEffect(() => {
     if (textRef.current) setLineHeight(textRef.current.offsetHeight);
   }, [current]);
 
-  /** ---------------------------
-   *   SWIPE GESTURES
-   * --------------------------- */
-  let touchStartX = 0;
-  let touchEndX = 0;
+  /** --------------------------- SWIPE GESTURES --------------------------- */
+  const touchStartX = useRef(0);
+  const touchEndX = useRef(0);
 
   const onTouchStart = (e: React.TouchEvent) => {
-    touchStartX = e.changedTouches[0].screenX;
+    touchStartX.current = e.changedTouches[0].screenX;
   };
 
   const onTouchEnd = (e: React.TouchEvent) => {
-    touchEndX = e.changedTouches[0].screenX;
+    touchEndX.current = e.changedTouches[0].screenX;
     handleSwipe();
   };
 
   const handleSwipe = () => {
-    if (touchStartX - touchEndX > 70) nextSlide();
-    if (touchEndX - touchStartX > 70) prevSlide();
+    if (touchStartX.current - touchEndX.current > 70) nextSlide();
+    if (touchEndX.current - touchStartX.current > 70) prevSlide();
   };
 
-  /** ---------------------------
-   *   NAVIGATION
-   * --------------------------- */
+  /** --------------------------- NAVIGATION --------------------------- */
   const nextSlide = () => setCurrent((prev) => (prev + 1) % items.length);
   const prevSlide = () =>
     setCurrent((prev) => (prev - 1 + items.length) % items.length);
@@ -161,25 +152,33 @@ export default function Carousel({ items, interval = 6000 }: CarouselProps) {
       onTouchStart={onTouchStart}
       onTouchEnd={onTouchEnd}
     >
-      {/* ---------------- BACKGROUND IMAGE WITH FADE ---------------- */}
+      {/* ---------------- BACKGROUND IMAGE ---------------- */}
       <AnimatePresence>
-        <motion.div
-          key={slide.id}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 1 }}
-          className="absolute inset-0"
-        >
-          <PicturePreview
-            image={{
-              ...slide.image,
-              url: getOptimizedImage(slide.image),
-            }}
-            alt_text={slide.title}
-            priority={current === 0} // only first slide LCP
-          />
-        </motion.div>
+        {items.map((slideItem, index) =>
+          index === current ? (
+            <motion.div
+              key={slideItem.id}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 1 }}
+              className="absolute inset-0 text"
+            >
+              <Image
+                src={getAbsoluteUrl(getOptimizedImage(slideItem.image))}
+                alt={slideItem.image.alternativeText || slideItem.title || "Slide Image"}
+                width={slideItem.image.width}
+                height={slideItem.image.height}
+                className="absolute inset-0 w-full h-full object-cover"
+                priority={index === 0} // preload only the first slide
+                quality={80}
+                sizes="100vw"
+              />
+              {/* optional overlay for readability */}
+              <div className="absolute inset-0 bg-black/30" />
+            </motion.div>
+          ) : null
+        )}
       </AnimatePresence>
 
       {/* ---------------- TEXT + ANIMATED ELEMENTS ---------------- */}
@@ -219,12 +218,16 @@ export default function Carousel({ items, interval = 6000 }: CarouselProps) {
       </div>
 
       {/* ---------------- NAVIGATION BUTTONS ---------------- */}
-      <div className="hidden md:block absolute left-6 top-1/2 -translate-y-1/2">
-        <ScrollButton type="prev" onClick={prevSlide} />
-      </div>
-      <div className="hidden md:block absolute right-6 top-1/2 -translate-y-1/2">
-        <ScrollButton type="next" onClick={nextSlide} />
-      </div>
+      {items.length > 1 && (
+        <>
+          <div className="hidden md:block absolute left-6 top-1/2 -translate-y-1/2">
+            <ScrollButton type="prev" onClick={prevSlide} />
+          </div>
+          <div className="hidden md:block absolute right-6 top-1/2 -translate-y-1/2">
+            <ScrollButton type="next" onClick={nextSlide} />
+          </div>
+        </>
+      )}
     </div>
   );
 }

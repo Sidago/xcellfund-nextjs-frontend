@@ -1,7 +1,8 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
+
+import { getAbsoluteUrl } from "@/utils/assetUrl";
+import Image from "next/image";
 import React from "react";
-import PicturePreview from "@/components/common/PicturePreview";
 
 type MediaFormat = {
   ext: string;
@@ -43,40 +44,47 @@ type Media = {
   updatedAt: string;
   publishedAt: string;
 };
+
 type Props = {
-  title: string;
-  subtitle: string;
+  title?: string;
+  subtitle?: string;
   alt_text?: string;
   image: Media;
+  priority?: boolean; // LCP
 };
-export default function Hero({ image, alt_text,title, subtitle }: Props) {
+
+const Hero: React.FC<Props> = ({ title, subtitle, image, alt_text, priority = true }) => {
+  if (!image) return null;
+
+  // Pick the best format for src
+  const src =
+    image.formats?.large?.url ||
+    image.formats?.medium?.url ||
+    image.formats?.small?.url ||
+    image.url;
+
+  const width = image.formats?.large?.width || image.width;
+  const height = image.formats?.large?.height || image.height;
+
   return (
-    <header
-      aria-label={title ?? "Hero"}
-      className="relative w-full overflow-hidden"
-    >
-      <div className="relative w-full min-h-[450px] md:min-h-[420px] lg:min-h-[500px]">
-        <PicturePreview alt_text={alt_text} image={image} priority />
-        {/* centered text */}
-        <div className="absolute inset-0 flex flex-col justify-end items-start px-5 md:px-8 z-10">
-          <div
-            className="text-white w-full max-w-[1140px] mx-auto
-            text-center lg:text-left flex flex-col items-center lg:items-start pb-32"
-          >
-            {title && (
-              <h1 className="flex flex-nowrap gap-4 items-center justify-center lg:justify-start text-3xl md:text-6xl font-normal prata">
-                <span className="h-20 md:h-32 w-px bg-gray-500 inline-block mr-5 md:mr-10"></span>
-                <span>{title}</span>
-              </h1>
-            )}
-            {subtitle && (
-              <p className="mt-4 text-base md:text-lg max-w-3xl opacity-90 mx-auto lg:mx-0">
-                {subtitle}
-              </p>
-            )}
-          </div>
-        </div>
+    <section className="relative w-full h-[60vh] md:h-[80vh] overflow-hidden flex items-center justify-center bg-gray-100">
+      <Image
+        src={getAbsoluteUrl(src)}
+        alt={alt_text || image.alternativeText || title || "Hero Image"}
+        width={width}
+        height={height}
+        priority={priority}
+        quality={80}
+        className="absolute inset-0 w-full h-full object-cover"
+        sizes="100vw"
+      />
+      <div className="relative z-10 text-center text-white px-5 md:px-0">
+        {title && <h1 className="text-3xl md:text-5xl font-bold mb-4">{title}</h1>}
+        {subtitle && <p className="text-lg md:text-2xl">{subtitle}</p>}
       </div>
-    </header>
+      <div className="absolute inset-0 bg-black/40" /> {/* overlay */}
+    </section>
   );
-}
+};
+
+export default Hero;

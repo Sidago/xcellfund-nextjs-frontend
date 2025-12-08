@@ -1,12 +1,12 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+"use client";
+
 import React from "react";
-import PicturePreview from "@/components/common/PicturePreview";
+import Image from "next/image";
 import Icon from "@/components/common/Icon";
 import AppLink from "@/components/common/AppLink";
+import { getAbsoluteUrl } from "@/utils/assetUrl";
 
-type Icon = {
-  name: string;
-};
+type IconType = { name: string };
 
 type LinkItem = {
   id: number;
@@ -16,7 +16,7 @@ type LinkItem = {
   target?: "_blank" | "_self";
   aria_label?: string;
   external?: boolean;
-  icon: Icon | null;
+  icon: IconType | null;
 };
 
 type Content = {
@@ -73,21 +73,22 @@ interface WhoAreWeBannerProps {
   images: Media[];
 }
 
-export default function WhoAreWeBanner({
-  data,
-}: {
-  data: WhoAreWeBannerProps;
-}) {
+// Helper: pick best optimized image
+const getOptimizedImage = (image: Media) =>
+  image.formats?.small?.url ?? image.formats?.medium?.url ?? image.formats?.large?.url ?? image.url;
+
+export default function WhoAreWeBanner({ data }: { data: WhoAreWeBannerProps }) {
   return (
     <div className="bg-white">
       <div className="max-w-[1140px] mx-auto flex flex-col-reverse md:flex-row items-center justify-between gap-6">
         {/* Left (Text) */}
         <div className="w-full md:w-[35%] flex justify-center px-5 mb-10 md:justify-start">
-          <LeftContent {...data?.content} />
+          <LeftContent {...data.content} />
         </div>
+
         {/* Right (Images) */}
         <div className="w-full md:w-[65%] flex justify-center md:justify-start">
-          <RightContent images={data?.images || []} />
+          <RightContent images={data.images || []} />
         </div>
       </div>
     </div>
@@ -100,14 +101,10 @@ const LeftContent = ({ subtitle, title, description, link }: Content) => (
       <div className="w-32 bg-[#cbd2d7] text-gray-400 h-px relative -left-44 top-2.5"></div>
       {subtitle}
     </div>
-    <h1 className="text-[#c6ac83] text-4xl leading-[1.56em] mt-3 prata">
-      {title}
-    </h1>
-    <p className="text-gray-400 text-[14px] tracking-widest mt-4 max-w-md">
-      {description}
-    </p>
+    <h1 className="text-[#c6ac83] text-4xl leading-[1.56em] mt-3 prata">{title}</h1>
+    <p className="text-gray-400 text-[14px] tracking-widest mt-4 max-w-md">{description}</p>
 
-    {link && link.url && link.label && (
+    {link?.url && link.label && (
       <AppLink
         aria_label={link.aria_label}
         external={link.external}
@@ -135,17 +132,46 @@ const RightContent = ({ images }: { images: Media[] }) => {
       <div className="relative flex flex-col gap-0 md:grid md:grid-cols-8">
         {hero && (
           <div className="md:col-start-3 md:col-end-13 overflow-hidden shadow-lg h-60 md:h-[360px] relative">
-            <PicturePreview image={hero} priority />
+            <Image
+              src={getAbsoluteUrl(getOptimizedImage(hero))}
+              alt={hero.alternativeText || "Hero Image"}
+              width={hero.width}
+              height={hero.height}
+              className="w-full h-full object-cover"
+              priority
+              quality={80}
+              sizes="100vw"
+            />
           </div>
         )}
+
         {left && (
           <div className="md:col-start-2 md:col-end-4 md:-mt-10 overflow-hidden shadow-md h-60 md:h-[180px] relative">
-            <PicturePreview image={left} priority />
+            <Image
+              src={getAbsoluteUrl(getOptimizedImage(left))}
+              alt={left.alternativeText || "Left Image"}
+              width={left.width}
+              height={left.height}
+              className="w-full h-full object-cover"
+              priority
+              quality={70}
+              sizes="50vw"
+            />
           </div>
         )}
+
         {right && (
           <div className="md:col-start-4 md:col-end-13 md:-mt-10 overflow-hidden shadow-md h-60 relative">
-            <PicturePreview image={right} priority />
+            <Image
+              src={getAbsoluteUrl(getOptimizedImage(right))}
+              alt={right.alternativeText || "Right Image"}
+              width={right.width}
+              height={right.height}
+              className="w-full h-full object-cover"
+              priority
+              quality={70}
+              sizes="70vw"
+            />
           </div>
         )}
       </div>
