@@ -1,3 +1,4 @@
+
 import Hero from "@/components/common/Hero";
 import AppLayout from "@/components/layouts/AppLayout";
 import RichtextContent from "@/components/rich-text-content/RichtextContent";

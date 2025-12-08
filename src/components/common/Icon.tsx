@@ -1,32 +1,61 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import * as SolidIcons from "@fortawesome/free-solid-svg-icons";
-import * as RegularIcons from "@fortawesome/free-regular-svg-icons";
-import * as BrandIcons from "@fortawesome/free-brands-svg-icons";
 
-type IconName =
-  | keyof typeof SolidIcons
-  | keyof typeof RegularIcons
-  | keyof typeof BrandIcons;
+// Solid
+import {
+  faEnvelope,
+  faPhone,
+  faWarehouse,
+  faScaleBalanced,
+  faChevronRight,
+  faArrowUp,
+  faXmark,
+  faBars,
+  faPlus,
+} from "@fortawesome/free-solid-svg-icons";
+
+// Brands
+import {
+  faFacebookF,
+  faTwitter,
+  faInstagram,
+  faLinkedinIn,
+  faRedRiver,
+  faBlackberry,
+} from "@fortawesome/free-brands-svg-icons";
+
+const allowedIcons = {
+  faEnvelope,
+  faPhone,
+  faFacebookF,
+  faTwitter,
+  faInstagram,
+  faLinkedinIn,
+  faWarehouse,
+  faScaleBalanced,
+  faRedRiver,
+  faBlackberry,
+  faChevronRight,
+  faArrowUp,
+  faXmark,
+  faBars,
+  faPlus,
+};
+
+type AllowedIconName = keyof typeof allowedIcons;
 
 interface Props {
-  name: IconName | string;
+  name: AllowedIconName | string;
   className?: string;
 }
 
 export default function Icon({ name, className = "" }: Props) {
-  const key = name as unknown as string;
-  const icon =
-    (SolidIcons as Record<string, unknown>)[key] ||
-    (RegularIcons as Record<string, unknown>)[key] ||
-    (BrandIcons as Record<string, unknown>)[key];
+  const icon = (allowedIcons as Record<string, any>)[name];
 
-  if (!icon || icon === "none") {
-    console.warn(`Icon "${name}" not found!`);
+  if (!icon) {
+    console.warn(`Icon "${name}" is not allowed!`);
     return null;
   }
 
-  return (
-    <FontAwesomeIcon icon={icon as any} className={className} />
-  );
+  return <FontAwesomeIcon icon={icon as any} className={className} />;
 }

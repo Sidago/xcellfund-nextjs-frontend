@@ -1,10 +1,6 @@
-"use client";
-
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function NotFound() {
-  const router = useRouter();
-
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-400 px-4 text-center">
       <div className="max-w-md">
@@ -33,12 +29,12 @@ export default function NotFound() {
         </p>
 
         {/* Button */}
-        <button
-          onClick={() => router.push("/")}
-          className="px-6 py-3 bg-blue-600 cursor-pointer text-white font-semibold rounded-lg shadow-lg hover:bg-blue-700 transition transform hover:scale-105"
+        <Link
+          href="/"
+          className="inline-block px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-lg hover:bg-blue-700 transition transform hover:scale-105"
         >
           Go Back Home
-        </button>
+        </Link>
       </div>
     </div>
   );

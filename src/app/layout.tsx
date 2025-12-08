@@ -98,7 +98,6 @@ export default async function RootLayout({
           content={metadata.twitter.description}
         />
         <meta name="twitter:image" content={metadata.twitter.images[0]} />
-
         {/* Preconnects */}
         <link rel="preconnect" href="https://xcellfund.com" crossOrigin="" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />

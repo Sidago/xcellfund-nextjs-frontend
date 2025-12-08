@@ -2,8 +2,13 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  compiler: {
+    removeConsole: true,
+  },
   compress: true,
-
+  experimental: {
+    optimizeCss: true,
+  },
   images: {
     remotePatterns: [
       {

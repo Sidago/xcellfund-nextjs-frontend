@@ -1,8 +1,8 @@
-import Hero from "@/components/common/Hero";
 import AppLayout from "@/components/layouts/AppLayout";
 import fetchApi from "@/services/ApiService";
 import { createMetadata } from "@/utils/generateMetadata";
 import React from "react";
+import Hero from "@/components/common/Hero";;
 
 export const generateMetadata = async () => {
   const data = await fetchApi("contactUs");

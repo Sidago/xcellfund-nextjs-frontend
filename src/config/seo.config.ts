@@ -5,7 +5,7 @@ export const defaultSEO = {
   authors: "XCell Fund",
   creator: "@xcellfund",
   publisher: "XCell Fund",
-  og_image: "/assets/image/default-og.png",
+  og_image: "/assets/image/default-og.avif",
   title: "XCell Fund",
   description:
     "XCell Fund is home to some of the world's most experienced business experts. Are you looking for business solutions? Here's how you can hire us to help you:",

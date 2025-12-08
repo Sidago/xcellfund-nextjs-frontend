@@ -36,6 +36,10 @@
     "defaults",
     "not IE 11",
     "not dead",
-    "supports es6-module"
+    "supports es6-module",
+    "last 2 Chrome versions",
+    "last 2 Firefox versions",
+    "last 2 Safari versions",
+    "last 2 Edge versions"
   ]
 }

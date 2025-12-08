@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable react-hooks/immutability */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import React, { useState, useEffect, useRef, useLayoutEffect } from "react";
@@ -8,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import ScrollButton from "@/components/carousel/ScrollButton";
 import PicturePreview from "@/components/common/PicturePreview";
 
-type MediaFormat = {
+export type MediaFormat = {
   ext: string;
   url: string;
   hash: string;
@@ -21,7 +18,7 @@ type MediaFormat = {
   sizeInBytes: number;
 };
 
-type Media = {
+export type Media = {
   id: number;
   documentId: string;
   name: string;
@@ -63,6 +60,16 @@ const animationDirections = [
   { x: "100vw", y: 0 },
 ];
 
+// Helper: pick best optimized image
+const getOptimizedImage = (image: Media) => {
+  return (
+    image.formats?.small?.url ??
+    image.formats?.medium?.url ??
+    image.formats?.large?.url ??
+    image.url
+  );
+};
+
 export default function Carousel({ items, interval = 6000 }: CarouselProps) {
   const [current, setCurrent] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
@@ -103,7 +110,7 @@ export default function Carousel({ items, interval = 6000 }: CarouselProps) {
           setCurrent((prev) => (prev + 1) % items.length);
           return 0;
         }
-        return p + 1.7; // smooth progress
+        return p + 1.7;
       });
     }, interval / 60);
 
@@ -164,7 +171,14 @@ export default function Carousel({ items, interval = 6000 }: CarouselProps) {
           transition={{ duration: 1 }}
           className="absolute inset-0"
         >
-          <PicturePreview image={slide.image} alt_text={slide.title} priority />
+          <PicturePreview
+            image={{
+              ...slide.image,
+              url: getOptimizedImage(slide.image),
+            }}
+            alt_text={slide.title}
+            priority={current === 0} // only first slide LCP
+          />
         </motion.div>
       </AnimatePresence>
 
@@ -197,7 +211,7 @@ export default function Carousel({ items, interval = 6000 }: CarouselProps) {
               initial={animDesc}
               animate={{ x: 0, y: 0, opacity: 1 }}
               transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
-              className="mt-6 text-sm sm:text-base md:text-lg text-(--sand-500) prata! font-light! leading-8 md:text-white md:w-2/3 prose prose-invert"
+              className="mt-6 text-sm sm:text-base md:text-lg text-(--sand-500) font-light leading-8 md:text-white md:w-2/3 prose prose-invert"
               dangerouslySetInnerHTML={{ __html: slide.description }}
             />
           </div>

@@ -69,10 +69,8 @@ export default function PicturePreview({
         alt={alt_text || image.alternativeText || "xcellfund"}
         fill
         sizes="(max-width: 750px) 100vw, (max-width: 1000px) 50vw, 33vw"
-        priority={priority}
+        priority
         className="object-cover"
-        // Optional: next/image will automatically pick WebP/AVIF if available
-        // Optional: add loader if needed for your backend
       />
     </div>
   );
