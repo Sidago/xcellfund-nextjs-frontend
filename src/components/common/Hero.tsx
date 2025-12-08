@@ -67,7 +67,7 @@ const Hero: React.FC<Props> = ({ title, subtitle, image, alt_text, priority = tr
   const height = image.formats?.large?.height || image.height;
 
   return (
-    <section className="relative w-full h-[60vh] md:h-[80vh] overflow-hidden flex items-center justify-center bg-gray-100">
+    <section className="relative w-full h-[50vh] md:h-[80vh] overflow-hidden flex items-center justify-center bg-gray-100">
       <Image
         src={getAbsoluteUrl(src)}
         alt={alt_text || image.alternativeText || title || "Hero Image"}

@@ -146,7 +146,7 @@ export default function Carousel({ items, interval = 6000 }: CarouselProps) {
 
   return (
     <div
-      className="relative w-full h-[80vh] md:h-[90vh] overflow-hidden"
+      className="relative w-full h-[50vh] md:h-[90vh] overflow-hidden"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
       onTouchStart={onTouchStart}
@@ -195,7 +195,7 @@ export default function Carousel({ items, interval = 6000 }: CarouselProps) {
           />
 
           {/* Text */}
-          <div ref={textRef} className="flex flex-col text-center md:text-left">
+          <div ref={textRef} className="flex flex-col mt-20 text-center md:text-left">
             <motion.h2
               key={slide.title + current}
               initial={animTitle}
