@@ -13,15 +13,6 @@ const nextConfig: NextConfig = {
     formats: ["image/avif", "image/webp"], // enables modern formats
     remotePatterns: [
       {
-        protocol: "http",
-        hostname: "localhost",
-        port: "1337",
-      },
-      {
-        protocol: "http",
-        hostname: "75.119.135.164",
-      },
-      {
         protocol: "https",
         hostname: "xcell.fund",
       },
