@@ -146,7 +146,7 @@ export default function Carousel({ items, interval = 6000 }: CarouselProps) {
 
   return (
     <div
-      className="relative w-full h-[50vh] md:h-[90vh] overflow-hidden"
+      className="relative w-full h-[60vh] md:h-[90vh] overflow-hidden"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
       onTouchStart={onTouchStart}
