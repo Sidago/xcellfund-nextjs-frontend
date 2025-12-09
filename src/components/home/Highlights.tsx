@@ -29,7 +29,7 @@ export default function Highlights({ data }: { data: Content[] }) {
 
   return (
     <div className="bg-transparent bg-[radial-gradient(at_center_center,#1d2022_0%,#202326_100%)] opacity-100 transition-[background,border-radius,opacity] duration-300">
-      <div className="max-w-[1140px] mx-auto py-12 px-10 md:px-0">
+      <div className="max-w-[1140px] mx-auto py-12 px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {list.map((item) => (
             <Item key={item.id} {...item} />
@@ -46,7 +46,7 @@ export default function Highlights({ data }: { data: Content[] }) {
 
 const Item = ({ title, subtitle, description, link }: Content) => {
   return (
-    <div className="bg-[#24252a] p-[30px] transition-all duration-300 hover:shadow-[0_0_15px_rgba(255,255,255,0.35)] w-[300px] md:w-auto">
+    <div className="bg-[#24252a] p-6 transition-all duration-300 hover:shadow-[0_0_15px_rgba(255,255,255,0.35)]">
       {subtitle && (
         <div className="text-(--sand-500) uppercase tracking-widest text-sm mb-2">
           {subtitle}
