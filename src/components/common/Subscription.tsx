@@ -84,7 +84,7 @@ export default function Subscription({ button, input, socials }: Props) {
     // Simulate success
     setSuccess("Subscription successful!");
     // Auto-hide success message
-    setTimeout(() => setSuccess(""), 5000);
+    setTimeout(() => setSuccess(""), 2000);
 
     setValue("");
   };

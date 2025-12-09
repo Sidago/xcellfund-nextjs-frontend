@@ -72,7 +72,7 @@ export default function Form({ button, input }: Props) {
     setSuccess(false);
 
     try {
-      const url = appConfig.apiUrl + "/api/contact";
+      const url = appConfig.apiUrl + "/api/contact-messages";
 
       const res = await fetch(url, {
         method: "POST",
@@ -92,7 +92,7 @@ export default function Form({ button, input }: Props) {
 
       setTimeout(() => {
         setSuccess(false);
-      }, 5000);
+      }, 2000);
     } catch (error) {
       console.error(error);
       alert("Something went wrong!");
