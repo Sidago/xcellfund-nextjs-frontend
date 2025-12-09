@@ -3,7 +3,7 @@
 "use client";
 
 import Image from "next/image";
-import React, { useState, Fragment, useRef, useEffect } from "react";
+import React, { useState, Fragment, useRef, useEffect, useMemo } from "react";
 import { Popover, Transition } from "@headlessui/react";
 import { MobileMenuButton } from "@/components/menu/MobileMenuButton";
 import { MobileMenu } from "@/components/menu/MobileMenu";
@@ -44,11 +44,11 @@ export default function Menu({ brand, menus }: Props) {
   const toggleMenu = () => setOpen((p) => !p);
   const closeMenu = () => setOpen(false);
 
+  const memoMenus = useMemo(() => menus, [menus, pathname]);
   return (
     <header className="w-full bg-transparent">
       <div className="w-full max-w-[1140px] mx-auto px-6 md:px-0">
         <div className="flex justify-between items-center py-4">
-
           {/* Logo */}
           <AppLink
             aria_label={brand.link.aria_label}
@@ -67,25 +67,19 @@ export default function Menu({ brand, menus }: Props) {
               unoptimized
             />
           </AppLink>
-
           {/* Desktop Menu */}
           <nav className="hidden md:flex items-center gap-8">
-            {menus.map((item) => {
+            {memoMenus.map((item) => {
               const buttonRef = useRef<HTMLButtonElement | null>(null);
-
               const isChildActive = item.submenu.some((s) => s.url === pathname);
               const isParentActive = item.menu.url === pathname || isChildActive;
-
-              // safe hover open
               const openOnHover = () => {
                 if (!mounted) return;
                 if (!buttonRef.current) return;
-
                 buttonRef.current.dispatchEvent(
                   new MouseEvent("click", { bubbles: true })
                 );
               };
-
               return (
                 <Popover key={item.id} className="relative">
                   {({ close }) => (
@@ -113,7 +107,6 @@ export default function Menu({ brand, menus }: Props) {
                           <Icon name="faPlus" className="text-xs" />
                         )}
                       </Popover.Button>
-
                       {/* Dropdown */}
                       {item.submenu.length > 0 && (
                         <Transition
@@ -128,7 +121,6 @@ export default function Menu({ brand, menus }: Props) {
                           <Popover.Panel className="absolute top-full right-0 bg-white shadow-lg z-50 w-56 max-w-[calc(100vw-20px)] px-4 py-2">
                             {item.submenu.map((sub) => {
                               const isActive = sub.url === pathname;
-
                               return (
                                 <div key={sub.id} className="py-1">
                                   <AppLink
@@ -156,12 +148,10 @@ export default function Menu({ brand, menus }: Props) {
               );
             })}
           </nav>
-
           {/* Mobile Button */}
           <MobileMenuButton open={open} toggle={toggleMenu} />
         </div>
       </div>
-
       {/* Mobile Menu */}
       <MobileMenu open={open} close={closeMenu} menus={menus} brand={brand} />
     </header>
