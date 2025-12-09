@@ -45,15 +45,34 @@
 }
 
 .page-content .list-icon li::before {
-  content: "\f0a4";
-  font-family: "Font Awesome 5 Free";
-  font-weight: 900;
-  color: var(--sand-500);
-  margin-right: 10px;
+  content: '';
+  display: inline-block;
+  width: 1.2em;
+  height: 1.2em;
+  mask-image: url(/assets/icons/hand.svg); /* your icon */
+  mask-size: cover;
+  background-color: var(--sand-500);
+  margin-right: 0.5rem;
+
+  /* Move the icon slightly down */
+  vertical-align: middle; /* baseline, middle, sub, text-bottom */
+  position: relative;
+  top: 0.15em; /* adjust this value as needed */
 }
 
+
 .page-content .list-tick li::before {
-  content: "\f00c";
-  font-family: "Font Awesome 5 Free";
-  font-weight: 900;
+  content: '';
+  display: inline-block;
+  width: 1.2em;
+  height: 1.2em;
+  mask-image: url(/assets/icons/tick.svg); /* your icon */
+  mask-size: cover;
+  background-color: var(--color-blue-600);
+  margin-right: 0.5rem;
+
+  /* Move the icon slightly down */
+  vertical-align: middle; /* baseline, middle, sub, text-bottom */
+  position: relative;
+  top: 0.15em; /* adjust this value as needed */
 }
