@@ -102,13 +102,6 @@ export default async function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
 
-        {/* Preload hero/LCP image */}
-        <link
-          rel="preload"
-          as="image"
-          href={`${defaultSEO.canonical}${defaultSEO.og_image}`}
-        />
-
         {/* Additional Meta */}
         {metadata.additionalMetaTags.map((tag) => (
           <meta key={tag.name} name={tag.name} content={tag.content} />

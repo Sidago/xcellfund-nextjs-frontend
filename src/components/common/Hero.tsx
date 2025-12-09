@@ -1,8 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { getAbsoluteUrl } from "@/utils/assetUrl";
 import Image from "next/image";
 import React from "react";
+import { useOptimizedImage } from "@/hooks/useOptimizedImage";
 
 type MediaFormat = {
   ext: string;
@@ -60,24 +62,15 @@ const Hero: React.FC<Props> = ({
   alt_text,
   priority = true,
 }) => {
+
+  const src = useOptimizedImage(image)
   if (!image) return null;
-
-  const src =
-    image.formats?.large?.url ||
-    image.formats?.medium?.url ||
-    image.formats?.small?.url ||
-    image.url;
-
-  const width = image.formats?.large?.width || image.width;
-  const height = image.formats?.large?.height || image.height;
 
   return (
     <section className="relative w-full h-[379px] md:h-[519px] overflow-hidden flex items-center justify-center bg-gray-100">
       <Image
         src={getAbsoluteUrl(src)}
         alt={alt_text || image.alternativeText || title || "Hero Image"}
-        width={width}
-        height={height}
         priority={priority}
         quality={80}
         className="absolute inset-0 w-full h-full object-cover"

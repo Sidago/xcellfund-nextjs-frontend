@@ -20,8 +20,8 @@ export default async function page() {
         image={data?.data?.hero.background_image}
       />
       <section className="max-w-[1140px] mx-auto px-5 md:px-0 py-20">
-        <h2 className="text-gray-800 text-3xl prata font-normal tracking-[2px] sentence-case mb-8 text-center md:text-left">Investor Login</h2>
-        <p className="text-gray-950 text-base font-light mb-6 tracking-[1px] text-center md:text-left">View Your Account, Contracts, Yield and Profile Information</p>
+        <h2 className="text-[#232325] text-3xl prata font-normal leading-10 sentence-case mb-5 text-center md:text-left">Investor Login</h2>
+        <p className="text-[#333743] text-lg lato font-light mb-6 leading-[30px] text-left">View Your Account, Contracts, Yield and Profile Information</p>
         <Form button={data?.data?.form?.button} input={data?.data?.form?.input} />
       </section>
     </AppLayout>

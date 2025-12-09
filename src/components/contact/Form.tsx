@@ -114,7 +114,7 @@ export default function Form({ button, input }: Props) {
             <div key={index} className={isLastOdd ? "md:col-span-2" : ""}>
               {field.label && (
                 <label
-                  className="block text-sm font-light mb-2 text-gray-950"
+                  className="block lato text-lg font-light leading-[15px] text-[#333743] mb-2"
                   htmlFor={field.name}
                 >
                   {field.label}
