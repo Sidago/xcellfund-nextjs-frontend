@@ -32,15 +32,10 @@
     "tailwindcss": "^4",
     "typescript": "^5"
   },
-  "browserslist": {
-    "production": [
-      "chrome >= 100",
-      "edge >= 100",
-      "firefox >= 100",
-      "safari >= 15"
-    ],
-    "development": [
-      "last 1 chrome version"
-    ]
-  }
+  "browserslist": [
+    "last 2 Chrome versions",
+    "last 2 Firefox versions",
+    "last 2 Safari versions",
+    "last 2 Edge versions"
+  ]
 }

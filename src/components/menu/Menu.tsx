@@ -3,7 +3,7 @@
 "use client";
 
 import Image from "next/image";
-import React, { useState, Fragment } from "react";
+import React, { useState, Fragment, useRef, useEffect } from "react";
 import { Popover, Transition } from "@headlessui/react";
 import { MobileMenuButton } from "@/components/menu/MobileMenuButton";
 import { MobileMenu } from "@/components/menu/MobileMenu";
@@ -37,6 +37,9 @@ type Props = { brand: Brand; menus: MenuItem[] };
 export default function Menu({ brand, menus }: Props) {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => setMounted(true), []);
 
   const toggleMenu = () => setOpen((p) => !p);
   const closeMenu = () => setOpen(false);
@@ -45,6 +48,7 @@ export default function Menu({ brand, menus }: Props) {
     <header className="w-full bg-transparent">
       <div className="w-full max-w-[1140px] mx-auto px-6 md:px-0">
         <div className="flex justify-between items-center py-4">
+
           {/* Logo */}
           <AppLink
             aria_label={brand.link.aria_label}
@@ -64,24 +68,35 @@ export default function Menu({ brand, menus }: Props) {
             />
           </AppLink>
 
-          {/* ⭐ Desktop Navigation with Popover + Hover */}
+          {/* Desktop Menu */}
           <nav className="hidden md:flex items-center gap-8">
             {menus.map((item) => {
+              const buttonRef = useRef<HTMLButtonElement | null>(null);
+
               const isChildActive = item.submenu.some((s) => s.url === pathname);
               const isParentActive = item.menu.url === pathname || isChildActive;
 
+              // safe hover open
+              const openOnHover = () => {
+                if (!mounted) return;
+                if (!buttonRef.current) return;
+
+                buttonRef.current.dispatchEvent(
+                  new MouseEvent("click", { bubbles: true })
+                );
+              };
+
               return (
                 <Popover key={item.id} className="relative">
-                  {({ open, close }) => (
+                  {({ close }) => (
                     <div
-                      onMouseEnter={() => hoverOpen(item.id)}
-                      onMouseLeave={() => close()}
+                      onMouseEnter={openOnHover}
+                      onMouseLeave={() => mounted && close()}
                       className="relative"
                     >
-                      {/* Parent Button */}
                       <Popover.Button
+                        ref={buttonRef}
                         className="flex items-center gap-1 text-white focus:outline-none"
-                        data-popover-button={item.id}
                       >
                         <AppLink
                           aria_label={item.menu.aria_label}
@@ -151,17 +166,4 @@ export default function Menu({ brand, menus }: Props) {
       <MobileMenu open={open} close={closeMenu} menus={menus} brand={brand} />
     </header>
   );
-}
-
-/* -------------------------------------------------
-   HOVER → OPEN LOGIC (Hydration Safe)
--------------------------------------------------- */
-function hoverOpen(id: number) {
-  const btn = document.querySelector(
-    `[data-popover-button="${id}"]`
-  ) as HTMLElement;
-
-  if (btn) {
-    btn.dispatchEvent(new MouseEvent("click", { bubbles: true }));
-  }
 }

@@ -162,6 +162,7 @@ export default function Carousel({ items, interval = 6000 }: CarouselProps) {
             quality={75}
             placeholder="blur"
             blurDataURL={getBlurDataURL()}
+            fetchPriority="high"
             sizes="100vw"
           />
         </motion.div>
