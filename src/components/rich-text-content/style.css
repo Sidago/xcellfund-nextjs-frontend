@@ -76,3 +76,140 @@
   position: relative;
   top: 0.15em; /* adjust this value as needed */
 }
+
+.content{
+  font-family: var(--font-lato) !important;
+}
+
+.content p {
+  font-size: 18px;
+  font-weight: 300;
+  font-family: var(--font-lato) !important;
+}
+
+.content h2{
+  font-size: 30px;
+  font-weight:500;
+  font-family: var(--font-prata) !important;
+}
+
+.content li{
+  font-size: 16px;
+  font-weight: 300;
+}
+
+.two-row-left {
+  display: flex;
+  width: 100%;
+  gap: 20px;
+  align-items: center; /* optional, aligns top */
+}
+
+.two-row-left figure {
+  width: 511px !important;
+  height: 340px !important;
+  margin: 0;
+  flex-shrink: 0; /* prevent shrinking */
+}
+
+.two-row-left figure p {
+  margin: 0;
+  height: 100%;
+  width: 100%;       /* make <p> fill the figure */
+}
+
+.two-row-left figure p img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;    /* removes default inline spacing */
+}
+
+/* Right column takes remaining width */
+.two-row-left > div:nth-child(2) {
+  flex-grow: 1;
+  min-width: 0;
+}
+/*right side image*/
+.two-row-right {
+  display: flex;
+  width: 100%;
+  gap: 20px;
+  align-items: center; /* optional, aligns top */
+}
+
+.two-row-right figure {
+  width: 412px !important;
+  height: 266px !important;
+  margin: 0;
+  flex-shrink: 0; /* prevent shrinking */
+}
+
+.two-row-right figure p {
+  margin: 0;
+  height: 100%;
+  width: 100%;       /* make <p> fill the figure */
+}
+
+.two-row-right figure p img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;    /* removes default inline spacing */
+}
+
+/* Right column takes remaining width */
+.two-row-right > div:nth-child(2) {
+  flex-grow: 1;
+  min-width: 0;
+}
+.text-16{
+  font-size: 16px !important;
+}
+
+/* Responsive: on small devices, stack columns */
+@media (max-width: 768px) {
+  .two-row-left, .two-row-right {
+    flex-direction: column;  /* stack figure + content */
+    gap: 10px;               /* optional spacing */
+  }
+}
+
+/*investment grid*/
+.investment-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 0.75rem;
+}
+
+.investment-item {
+    border-radius: 6px;
+    box-sizing: border-box;
+    flex: 1 1 100%; /* Default 1 column */
+    min-width: 260px;
+    padding: 1rem;
+}
+
+.investment-item h2{
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.investment-item p{
+  text-align: justify;
+}
+
+/* Medium screens: 2 columns */
+@media (min-width: 768px) {
+    .investment-item {
+        flex: 1 1 calc(50% - 1rem);
+    }
+}
+
+/* Large screens: 3 columns */
+@media (min-width: 1200px) {
+    .investment-item {
+        flex: 1 1 calc(33.333% - 1rem);
+    }
+}

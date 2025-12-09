@@ -75,6 +75,7 @@ const Hero: React.FC<Props> = ({
         quality={80}
         className="absolute inset-0 w-full h-full object-cover"
         sizes="100vw"
+        fill
       />
 
       {/* Content */}

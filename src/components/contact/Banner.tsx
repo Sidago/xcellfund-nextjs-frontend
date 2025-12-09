@@ -80,7 +80,7 @@ export default function Banner({
           {title}
         </h1>
         <div className="w-32 mx-auto bg-gray-400 h-px relative top-2.5"></div>
-        <p className="max-w-2xl mx-auto text-xs prata font-bold tracking-[2px] mb-5 text-white">
+        <p className="max-w-2xl mx-auto text-xs lato font-bold mb-5 tracking-[2px] uppercase text-white">
           {subtitle}
         </p>
         {link.label && (
@@ -91,7 +91,7 @@ export default function Banner({
             target={link.target}
             type={link.type}
             url={link.url}
-            className="px-6 py-3 bg-gray-600 rounded text-sm font-semibold uppercase text-white hover:bg-(--sand-500) transition"
+            className="px-6 py-2 bg-[#333743] rounded text-[15px] font-light uppercase text-white hover:bg-(--sand-500) transition"
           />
         )}
       </div>
