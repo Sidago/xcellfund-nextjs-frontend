@@ -13,6 +13,10 @@
     margin-top: 5px;
 }
 
+.page-content.lato {
+  font-family: var(--font-lato) !important;
+}
+
 .page-content .list-dash li::before {
   content: "—";
 }

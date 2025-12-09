@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import AppLink from "@/components/common/AppLink";
 import Icon from "@/components/common/Icon";
+import appConfig from "@/config/app.config";
 
 type Icon = {
   name: string;
@@ -39,26 +41,85 @@ type Props = {
 };
 
 export default function Subscription({ button, input, socials }: Props) {
+  const [value, setValue] = useState("");
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+
+  const validateEmail = (email: string) => {
+    return /\S+@\S+\.\S+/.test(email);
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError("");
+    setSuccess("");
+    // Required validation
+    if (input.required && !value.trim()) {
+      setError(`${input.name || "Field"} is required`);
+      return;
+    }
+
+    // Email validation
+    if (input.type === "email" && !validateEmail(value.trim())) {
+      setError("Please enter a valid email address");
+      return;
+    }
+    
+    const url = appConfig.apiUrl + "/api/subscribers";
+
+    const res = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${appConfig.apiKey}`,
+      },
+      body: JSON.stringify({
+        data: {
+          [input.name || "email"]: value.trim(),
+        },
+      }),
+    });
+
+    if (!res.ok) throw new Error("Failed to send message");
+    // Simulate success
+    setSuccess("Subscription successful!");
+    // Auto-hide success message
+    setTimeout(() => setSuccess(""), 5000);
+
+    setValue("");
+  };
+
   return (
     <div className="w-full bg-gray-950 p-5">
       <div className="w-full max-w-[1140px] mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-center gap-4 p-4">
           {/* Email Subscription */}
           <div className="w-full md:w-1/3">
-            <form className="flex items-center gap-2 w-full bg-white rounded">
-              <input
-                type={input.type}
-                placeholder={input.placeholder}
-                className="p-3 rounded-l text-base w-full text-black placeholder-gray-300 focus:outline-none flex-1"
-                aria-label={input.label || "Subscription Input"}
-                required={input.required}
-              />
-              <button
-                type="submit"
-                className="bg-(--sand-500) text-white px-4 py-3 rounded-r hover:bg-(--sand-600) transition-colors duration-200 shrink-0 disabled:opacity-50 cursor-pointer disabled:cursor-not-allowed"
-              >
-                {button.label}
-              </button>
+            <form className="flex flex-col gap-2" onSubmit={handleSubmit}>
+              <div className="flex items-center gap-2 w-full bg-white rounded">
+                <input
+                  type={input.type}
+                  value={value}
+                  onChange={(e) => setValue(e.target.value)}
+                  placeholder={input.placeholder}
+                  className="p-3 rounded-l text-base w-full text-black placeholder-gray-300 focus:outline-none flex-1"
+                  aria-label={input.label || "Subscription Input"}
+                />
+                <button
+                  type="submit"
+                  className="bg-(--sand-500) text-white px-4 py-3 rounded-r hover:bg-(--sand-600) transition-colors duration-200 shrink-0 disabled:opacity-50 cursor-pointer disabled:cursor-not-allowed"
+                >
+                  {button.label}
+                </button>
+              </div>
+
+              {/* Error message */}
+              {error && (
+                <p className="text-red-500 text-sm capitalize">{error}</p>
+              )}
+
+              {/* Success message */}
+              {success && <p className="text-green-400 text-sm">{success}</p>}
             </form>
           </div>
 

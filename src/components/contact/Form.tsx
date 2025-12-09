@@ -1,15 +1,11 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import TextInput from "@/components/common/TextInput";
+import appConfig from "@/config/app.config";
 
-type Icon = {
-  name: string;
-};
+type Icon = { name: string };
 
-type Button = {
-  label: string;
-  icon: Icon;
-};
+type Button = { label: string; icon: Icon };
 
 type Input = {
   icon: Icon;
@@ -26,45 +22,140 @@ type Props = {
 };
 
 export default function Form({ button, input }: Props) {
-  const isOdd = input.length % 2 !== 0; // check if total inputs are odd
+  const [formData, setFormData] = useState<Record<string, string>>({});
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+
+  const isOdd = input.length % 2 !== 0;
+
+  const handleChange = (name: string, value: string) => {
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  // Format error names: phone_number → Phone Number
+  const formatFieldName = (name: string = "") => {
+    return name
+      .replace(/_/g, " ")
+      .replace(/\b\w/g, (c) => c.toUpperCase());
+  };
+
+  const validate = () => {
+    const newErrors: Record<string, string> = {};
+
+    input.forEach((field) => {
+      const key = field.name || "";
+      const label = field.label || formatFieldName(key);
+
+      if (field.required && !formData[key]?.trim()) {
+        newErrors[key] = `${label} is required`;
+      }
+
+      if (field.type === "email" && formData[key]) {
+        const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!pattern.test(formData[key])) {
+          newErrors[key] = "Invalid email format";
+        }
+      }
+    });
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!validate()) return;
+
+    setLoading(true);
+    setSuccess(false);
+
+    try {
+      const url = appConfig.apiUrl + "/api/contact";
+
+      const res = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${appConfig.apiKey}`,
+        },
+        body: JSON.stringify({
+          data: formData,
+        }),
+      });
+
+      if (!res.ok) throw new Error("Failed to send message");
+
+      setSuccess(true);
+      setFormData({});
+
+      setTimeout(() => {
+        setSuccess(false);
+      }, 5000);
+    } catch (error) {
+      console.error(error);
+      alert("Something went wrong!");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="w-full">
-      {/* Form Title */}
-      {/* <h2 className="text-(--sand-500) text-4xl leading-[1.56em] uppercase mb-8 text-center md:text-left prata">
-        {title}
-      </h2> */}
-
-      {/* Form */}
-      <form className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <form
+        className="grid grid-cols-1 md:grid-cols-2 gap-6"
+        onSubmit={handleSubmit}
+      >
         {input.map((field, index) => {
-          // Check if last element in an odd-length array
           const isLastOdd = isOdd && index === input.length - 1;
 
           return (
             <div key={index} className={isLastOdd ? "md:col-span-2" : ""}>
-              {field.label && <label className="block text-sm font-light mb-2 text-gray-950" htmlFor={field.name}>{field.label}<span>{field.required ? " *" : ""}</span></label>}
+              {field.label && (
+                <label
+                  className="block text-sm font-light mb-2 text-gray-950"
+                  htmlFor={field.name}
+                >
+                  {field.label}
+                  <span>{field.required ? " *" : ""}</span>
+                </label>
+              )}
+
               <TextInput
                 name={field.name}
                 type={field.type}
-                value=""
-                onChange={(event) => console.log(event)}
+                value={formData[field.name || ""] || ""}
+                onChange={(e) => handleChange(field.name || "", e.target.value)}
                 placeholder={field.placeholder}
               />
+
+              {errors[field.name || ""] && (
+                <p className="text-red-600 text-sm mt-1">
+                  {errors[field.name || ""]}
+                </p>
+              )}
             </div>
           );
         })}
-      </form>
 
-      {/* Submit Button */}
-      <div className="mt-6">
-        <button
-          type="submit"
-          className="lato text-[15px] inline-block bg-[#333743] text-white px-6 py-3 rounded capitalize font-normal hover:opacity-95 transition cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
-        >
-          {button.label}
-        </button>
-      </div>
+        {/* Submit Button inside form to ensure submit works */}
+        <div className="md:col-span-2 mt-4">
+          <button
+            type="submit"
+            disabled={loading}
+            className="lato text-[15px] inline-block bg-[#333743] text-white px-6 py-3 rounded capitalize font-normal hover:opacity-95 transition cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {loading ? "Sending..." : button.label}
+          </button>
+
+          {success && (
+            <p className="text-green-600 text-sm mt-3">
+              Message sent successfully!
+            </p>
+          )}
+        </div>
+      </form>
     </div>
   );
 }

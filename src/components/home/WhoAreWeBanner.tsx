@@ -111,7 +111,7 @@ const LeftContent = ({ subtitle, title, description, link }: Content) => (
         target={link.target}
         type={link.type}
         url={link.url}
-        className="mt-6 px-6 py-2 bg-(--sand-500) text-white rounded text-base font-semibold sentence-case hover:bg-[#333743] transition-colors flex items-center gap-1"
+        className="mt-6 px-6 py-2 bg-(--sand-500) text-white rounded text-base font-normal lato sentence-case hover:bg-[#333743] transition-colors flex items-center gap-1"
       >
         <span>{link.label}</span>
         <Icon name={link.icon?.name || ""} />

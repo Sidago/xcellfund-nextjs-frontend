@@ -86,7 +86,7 @@ const RightContent = ({ description, link }: Content) => (
         target={link.target}
         type={link.type}
         url={link.url}
-        className="bg-(--sand-500) px-3 py-2 text-white rounded text-base font-normal prata sentence-case
+        className="bg-(--sand-500) px-3 py-2 text-white rounded text-base font-normal lato sentence-case
              transition-all duration-300 ease-in-out hover:bg-[#333743] mt-6 inline-block w-fit lato"
       />
     )}
