@@ -46,7 +46,7 @@ export default function Highlights({ data }: { data: Content[] }) {
 
 const Item = ({ title, subtitle, description, link }: Content) => {
   return (
-    <div className="bg-[#24252a] p-[30px] transition-all duration-300 hover:shadow-[0_0_15px_rgba(255,255,255,0.35)] w-[310px] md:w-auto">
+    <div className="bg-[#24252a] p-[30px] transition-all duration-300 hover:shadow-[0_0_15px_rgba(255,255,255,0.35)] w-[300px] md:w-auto">
       {subtitle && (
         <div className="text-(--sand-500) uppercase tracking-widest text-sm mb-2">
           {subtitle}
@@ -57,7 +57,7 @@ const Item = ({ title, subtitle, description, link }: Content) => {
         <h3 className="text-2xl font-normal text-white mb-3 prata leading-9">{title}</h3>
       )}
 
-      <p className="text-white mb-5 lato text-lg font-light leading-[30px] tracking-[0.5px] md:tracking-normal">
+      <p className="text-white mb-5 lato text-lg font-light leading-[30px] md:tracking-normal">
         {description}
       </p>
       {link && (

@@ -1,3 +1,26 @@
+
+/* Figures that have inline width like style="width:100%;" */
+.page-content figure,
+.page-content .image,
+.page-content .image_resized {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 1rem 0 !important;
+}
+
+/* Remove fixed width inline styles injected by Elementor that break layout */
+.page-content [style*="width:1120px"] {
+  width: auto !important;
+  max-width: 100% !important;
+}
+
+/* Generic rule to neutralize explicit pixel widths inside inline styles */
+.page-content [style*="width:"] {
+  width: auto !important;
+  max-width: 100% !important;
+}
+
+
 /* Only keep pseudo-elements or things Tailwind cannot handle */
 .page-content blockquote::before
 {
