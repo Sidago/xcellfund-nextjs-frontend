@@ -37,7 +37,7 @@ export default function WhoAreWe({ data }: { data: WhoAreWeProps }) {
                    opacity-100 
                    transition-[background,border-radius,opacity] duration-300 flex flex-col 
                    items-center justify-center
-                   py-16 md:py-0 px-6 md:px-0"
+                   py-16 md:py-0 px-6 md:px-6"
       >
         <div className="max-w-[1140px] mx-auto flex flex-col md:flex-row items-center justify-between gap-10 md:gap-6 px-10 md:px-0">
           {/* Left */}

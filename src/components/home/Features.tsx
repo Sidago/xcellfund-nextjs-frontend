@@ -34,7 +34,7 @@ export default function Features({ data }: FeaturesProps) {
   const features: Feature[] = (data as Feature[]) ?? [];
 
   return (
-    <div className="flex flex-wrap justify-center max-w-[1140px] mx-auto relative top-12 md:top-[-100px] px-12 md:px-0 z-20">
+    <div className="flex flex-wrap justify-center max-w-[1140px] mx-auto relative top-12 md:top-[-100px] px-12 md:px-6 z-20">
       {features.map((feature) => {
         return (
           <Item

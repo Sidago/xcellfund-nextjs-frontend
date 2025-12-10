@@ -23,7 +23,7 @@ export default async function page() {
   const homeData = await fetchApi("home");
   return (
     <AppLayout pathname="/">
-      <Carousel items={homeData?.data?.carousel?.items} interval={30000} />
+      <Carousel items={homeData?.data?.carousel?.items} />
       <Suspense fallback={<FeatureSkeleton count={4} />}>
         <Features data={homeData?.data?.features} />
       </Suspense>

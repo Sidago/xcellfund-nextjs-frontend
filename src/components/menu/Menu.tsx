@@ -47,7 +47,7 @@ export default function Menu({ brand, menus }: Props) {
   const memoMenus = useMemo(() => menus, [menus, pathname]);
   return (
     <header className="w-full bg-transparent">
-      <div className="w-full max-w-[1140px] mx-auto px-6 md:px-0">
+      <div className="w-full max-w-[1140px] mx-auto px-6 md:px-6">
         <div className="flex justify-between items-center py-4">
           {/* Logo */}
           <AppLink

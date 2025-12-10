@@ -57,7 +57,7 @@ type Props = {
 
 export default function Footer({ address, branding, quicklinks }: Props) {
   return (
-    <footer className="w-full bg-[#f9f9f9] py-10 px-4 md:px-0">
+    <footer className="w-full bg-[#f9f9f9] py-10 px-4 md:px-6">
       <div className="w-full max-w-[1140px] mx-auto">
         <div className="container mx-auto flex flex-col md:flex-row justify-between gap-10">
           {/* Branding */}

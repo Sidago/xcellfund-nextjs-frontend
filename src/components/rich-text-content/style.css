@@ -64,17 +64,17 @@
 .page-content .list-tick li::before {
   content: '';
   display: inline-block;
-  width: 1.2em;
-  height: 1.2em;
+  width: 1.5em;
+  height: 1.3em;
   mask-image: url(/assets/icons/tick.svg); /* your icon */
   mask-size: cover;
-  background-color: var(--color-blue-600);
+  background-color: #00486A;
   margin-right: 0.5rem;
 
   /* Move the icon slightly down */
   vertical-align: middle; /* baseline, middle, sub, text-bottom */
   position: relative;
-  top: 0.15em; /* adjust this value as needed */
+  top: 0.0em; /* adjust this value as needed */
 }
 
 .content{
@@ -85,11 +85,19 @@
   font-size: 18px;
   font-weight: 300;
   font-family: var(--font-lato) !important;
+  line-height: 30px;
+  color: #333743;
 }
 
 .content h2{
   font-size: 30px;
-  font-weight:500;
+  font-weight:400;
+  font-family: var(--font-prata) !important;
+  color: #232325;
+}
+
+.content h3{
+  font-size: 24px;
   font-family: var(--font-prata) !important;
 }
 
@@ -212,4 +220,21 @@
     .investment-item {
         flex: 1 1 calc(33.333% - 1rem);
     }
+}
+
+/* High-priority custom responsive span control */
+.responsive-span-group span {
+  display: inline !important;
+}
+
+.responsive-span-group span:last-child {
+  display: block !important;
+}
+
+/* From medium screens and up, force all spans to block */
+@media (min-width: 768px) {
+  .responsive-span-group span {
+    display: block !important;
+    width: 100% !important;
+  }
 }
