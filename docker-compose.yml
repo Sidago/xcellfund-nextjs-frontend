@@ -1,0 +1,13 @@
+version: "3.9"
+
+services:
+  nextjs-frontend-xcellfund:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: nextjs-frontend-xcellfund
+    env_file:
+      - .env
+    ports:
+      - "1338:3000"
+    restart: always

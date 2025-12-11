@@ -1,0 +1,326 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+
+  /* Custom Sand color shades */
+  --sand-50: #fcfaf7;
+  --sand-100: #f9f4eb;
+  --sand-200: #f1e6d5;
+  --sand-300: #e9d7be;
+  --sand-400: #dfc59f;
+  --sand-500: #cfb795; /* main color */
+  --sand-600: #b89f7c;
+  --sand-700: #9d8b68;
+  --sand-800: #7f7152;
+  --sand-900: #665d44;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-lato);
+}
+/* Font utility classes */
+.lato {
+  font-family: var(--font-lato);
+}
+
+/* Font utility classes */
+.prata {
+  font-family: var(--font-prata);
+}
+
+.montserrat {
+  font-family: var(--font-montserrat);
+}
+
+/* Carousel classes */
+.carousel-icon-container {
+  @apply flex flex-col items-center cursor-pointer gap-0;
+}
+
+/* Shared styles for arrows and lines */
+.carousel-icon-container .up-arrow,
+.carousel-icon-container .down-arrow,
+.carousel-icon-container .top-line,
+.carousel-icon-container .bottom-line {
+  @apply bg-white;
+}
+
+/* Up & Down arrow dimensions */
+.carousel-icon-container .up-arrow,
+.carousel-icon-container .down-arrow {
+  @apply relative w-[2px] h-[20px];
+}
+
+/* Next button pseudo-element */
+.carousel-icon-container .up-arrow::before {
+  content: "";
+  @apply absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+  width: 6px;
+  height: 6px;
+  border-top: 2px solid #ffffff;
+  border-left: 2px solid #ffffff;
+}
+
+/* Bottom line */
+.carousel-icon-container .bottom-line {
+  @apply w-[2px] h-[15px];
+}
+
+/* Previous button top line */
+.carousel-icon-container .top-line {
+  @apply w-[2px] h-[15px];
+}
+
+/* Next & Previous text */
+.next-text,
+.prev-text {
+  color: #ffffff;
+  font-family: var(--font-prata);
+  font-weight: bold;
+  font-size: 18px;
+  transform: rotate(270deg);
+  margin: 30px 0;
+  font-weight: 300;
+}
+
+.next-text {
+  letter-spacing: 4px;
+}
+
+.prev-text {
+  letter-spacing: 3px;
+}
+
+/* Carousel */
+.carousel-title {
+  font-family: var(--font-prata);
+  letter-spacing: 0px;
+  font-weight: 300;
+  color: #ffffff;
+}
+
+.carousel-description {
+  font-family: var(--font-lato);
+  font-weight: 300;
+}
+
+/* Down arrow pseudo-element */
+.carousel-icon-container .down-arrow::before {
+  content: "";
+  @apply absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%) rotate(225deg);
+  width: 6px;
+  height: 6px;
+  border-top: 2px solid #ffffff;
+  border-left: 2px solid #ffffff;
+}
+/* Main Menu and Sub Menu */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hamburger-animate-slideDown {
+  animation: slideDown 0.25s ease-out;
+}
+
+@keyframes zoomSlow {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.3);
+  }
+}
+
+.animate-zoomSlow {
+  animation: zoomSlow 15s ease-out forwards;
+  will-change: transform;
+}
+
+@keyframes fadeSlideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeSlideUp {
+  animation: fadeSlideUp 0.9s ease-out forwards;
+}
+
+@keyframes slideUp {
+  0% {
+    opacity: 0;
+    transform: scaleY(0);
+  }
+  100% {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+}
+
+.animate-slideUp {
+  animation: slideUp 0.9s ease-out forwards;
+}
+
+/* LEFT → RIGHT */
+@keyframes slideLeftToRight {
+  0% {
+    opacity: 1;
+    transform: translateX(-50px);
+    /* filter: blur(4px); */
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+    /* filter: blur(0); */
+  }
+}
+
+/* RIGHT → LEFT */
+@keyframes slideRightToLeft {
+  0% {
+    opacity: 1;
+    transform: translateX(50px);
+    /* filter: blur(4px); */
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+    /* filter: blur(0); */
+  }
+}
+
+/* TOP → BOTTOM */
+@keyframes slideTopToBottom {
+  0% {
+    opacity: 1;
+    transform: translateY(-50px);
+    /* filter: blur(4px); */
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    /* filter: blur(0); */
+  }
+}
+
+/* BOTTOM → TOP */
+@keyframes slideBottomToTop {
+  0% {
+    opacity: 1;
+    transform: translateY(50px);
+    /* filter: blur(4px); */
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    /* filter: blur(0); */
+  }
+}
+
+/* Utility classes */
+.animate-ltr {
+  animation: slideLeftToRight 0.9s ease-out forwards;
+}
+.animate-rtl {
+  animation: slideRightToLeft 0.9s ease-out forwards;
+}
+.animate-ttb {
+  animation: slideTopToBottom 0.9s ease-out forwards;
+}
+.animate-btt {
+  animation: slideBottomToTop 0.9s ease-out forwards;
+}
+
+blockquote::before {
+  width: 19px;
+  height: 22px;
+  background-color: #949494;
+  -webkit-mask-image: url(/assets/icons/blockquote.png);
+  mask-image: url(/assets/icons/blockquote.png);
+  content: "";
+  position: absolute;
+  -webkit-mask-size: cover;
+  mask-size: cover;
+  margin-top: 5px;
+}
+
+.list-dash {
+  list-style: none;
+  padding-left: 0;
+}
+
+.list-dash li {
+  padding-left: 25px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='2'%3E%3Crect width='20' height='2' fill='currentColor'/%3E%3C/svg%3E");
+  background-position: 7px 0.9em;
+  background-repeat: no-repeat;
+  background-size: 25px 1px;
+  padding-left: 32px;
+}
+
+/* No ::before needed with this approach */
+.list-icon li::before {
+  content: "";
+  display: inline-block;
+  width: 1.2em;
+  height: 1.2em;
+  mask-image: url(/assets/icons/hand.svg); /* your icon */
+  mask-size: cover;
+  background-color: var(--sand-500);
+  margin-right: 0.8rem;
+
+  /* Move the icon slightly down */
+  vertical-align: middle; /* baseline, middle, sub, text-bottom */
+  position: relative;
+  top: 0.15em; /* adjust this value as needed */
+}
+
+.list-tick li::before {
+  content: "";
+  display: inline-block;
+  width: .8em;
+  height: 0.8em;
+  mask-image: url(/assets/icons/tick.svg); /* your icon */
+  mask-size: cover;
+  background-color: #00486a;
+  margin-right: 1rem;
+  font-size: 30px;
+
+  /* Move the icon slightly down */
+  vertical-align: middle; /* baseline, middle, sub, text-bottom */
+  position: relative;
+  top: -2px; /* adjust this value as needed */
+}
+
+ul {
+  line-height: 30px;
+}

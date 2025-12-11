@@ -1,0 +1,6 @@
+# robots.txt for xcellfund.com
+
+User-agent: *
+Allow: /
+
+Sitemap: https://xcellfund.com/sitemap.xml
