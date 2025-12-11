@@ -90,7 +90,7 @@ export default function Subscription({ button, input, socials }: Props) {
   };
 
   return (
-    <div className="w-full bg-gray-950 p-5">
+    <div className="w-full bg-[#2b3034] p-5">
       <div className="w-full max-w-[1140px] mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-center gap-4 p-4">
           {/* Email Subscription */}

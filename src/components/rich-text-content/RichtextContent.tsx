@@ -1,5 +1,4 @@
 import React from "react";
-import "@/components/rich-text-content/style.css";
 
 interface RichtextContentProps {
   content?: string;
@@ -23,9 +22,8 @@ export default function RichtextContent({
   }
 
   return (
-    <div
-      className="page-content prose prose-lg max-w-none"
-      dangerouslySetInnerHTML={{ __html: content }}
-    />
+    <div className="w-full">
+      <div dangerouslySetInnerHTML={{ __html: content }} />
+    </div>
   );
 }
