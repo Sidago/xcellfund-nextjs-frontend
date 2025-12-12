@@ -57,7 +57,8 @@ md:mb-1 md:mb-1.5 md:mb-2 md:mb-2.5 md:mb-3 md:mb-3.5 md:mb-4 md:mb-4.5 md:mb-5 
 md:ms-1 md:ms-1.5 md:ms-2 md:ms-2.5 md:ms-3 md:ms-3.5 md:ms-4 md:ms-4.5 md:ms-5 md:ms-5.5 md:ms-6 md:ms-6.5 md:ms-7 md:ms-7.5 md:ms-8 md:ms-8.5 md:ms-9 md:ms-9.5 md:ms-10
 md:me-1 md:me-1.5 md:me-2 md:me-2.5 md:me-3 md:me-3.5 md:me-4 md:me-4.5 md:me-5 md:me-5.5 md:me-6 md:me-6.5 md:me-7 md:me-7.5 md:me-8 md:me-8.5 md:me-9 md:me-9.5 md:me-10
 /*extra*/
-border-2 border-(--sand-600) w-full md:w-[1092px] pb-[30px]
+border-2 border-(--sand-600) w-full md:w-[1092px] pb-[30px] md:w-md md:h-[294px]
+ flex flex-col md:flex-row items-center
     "
     />
   );
