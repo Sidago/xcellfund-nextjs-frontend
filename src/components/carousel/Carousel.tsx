@@ -30,7 +30,7 @@ import ScrollButton from "@/components/carousel/ScrollButton";
 import { getAbsoluteUrl } from "@/utils/assetUrl";
 import { useOptimizedImage } from "@/hooks/useOptimizedImage";
 
-export default function Carousel({ items, interval = 3000 }: CarouselProps) {
+export default function Carousel({ items, interval = 3000000 }: CarouselProps) {
   const [current, setCurrent] = useState(0);
   const [animBorder, setAnimBorder] = useState("animate-ltr");
   const [animTitle, setAnimTitle] = useState("animate-ttb");
@@ -114,7 +114,7 @@ export default function Carousel({ items, interval = 3000 }: CarouselProps) {
             ref={textRef}
           >
             <h2
-              className={`text-4xl md:text-[62px] prata font-light leading-[39px] md:leading-[82px] max-w-[690px] mx-2 md:mx-0 ${animTitle}`}
+              className={`text-[32px] md:text-[62px] prata font-light leading-[39px] md:leading-[82px] max-w-[690px] mx-2 md:mx-0 ${animTitle}`}
             >
               {slide.title}
             </h2>
