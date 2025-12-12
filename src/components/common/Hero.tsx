@@ -78,9 +78,9 @@ const Hero: React.FC<Props> = ({
       />
 
       {/* Content */}
-      <div className="relative z-10 px-5 py-5 flex flex-col gap-3 text-white items-start justify-end bottom-16 w-full max-w-[1140px] h-full text-left md:bottom-20">
+      <div className="relative z-10 px-5 py-5 flex flex-col gap-3 text-white items-start justify-end bottom-16 w-full max-w-[1140px] h-full text-left md:bottom-28.5">
         {title && (
-          <h1 className="flex flex-nowrap gap-4 items-center text-[26px] md:text-6xl font-normal prata">
+          <h1 className="flex flex-nowrap gap-2 items-center text-[26px] md:text-6xl font-normal prata">
             <span className="h-16 md:h-32 w-px bg-gray-500 inline-block mr-5 md:mr-10"></span>
             <span>{title}</span>
           </h1>
