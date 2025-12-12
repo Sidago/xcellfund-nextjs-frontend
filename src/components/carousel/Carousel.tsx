@@ -30,7 +30,7 @@ import ScrollButton from "@/components/carousel/ScrollButton";
 import { getAbsoluteUrl } from "@/utils/assetUrl";
 import { useOptimizedImage } from "@/hooks/useOptimizedImage";
 
-export default function Carousel({ items, interval = 3000000 }: CarouselProps) {
+export default function Carousel({ items, interval = 3000 }: CarouselProps) {
   const [current, setCurrent] = useState(0);
   const [animBorder, setAnimBorder] = useState("animate-ltr");
   const [animTitle, setAnimTitle] = useState("animate-ttb");
